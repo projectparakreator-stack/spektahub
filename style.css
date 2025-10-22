@@ -1,0 +1,1170 @@
+/* --- Gaya Umum & Font --- */
+@import url('https://fonts.googleapis.com/css2?family=Maragsa&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Variabel Warna untuk Mode Malam (Default) */
+:root {
+    --primary-color: #ffffff;
+    --background-color: #000000;
+    --panel-bg: #0a0a0a;
+    --accent-color: #04eff6; /* Cyan */
+    --text-color: #cccccc;
+    --border-color: #1a1a1a;
+    --font-header: 'Maragsa', sans-serif; /* Font untuk Header/Judul */
+    --font-body: 'Poppins', sans-serif; /* Font untuk Deskripsi/Paragraf */
+    --aurora-opacity-1: 0.1;
+    --aurora-opacity-2: 0.2;
+    --header-bg: radial-gradient(circle, rgba(10, 10, 15, 0.8) 0%, rgba(0, 0, 0, 0.9) 70%);
+    --nav-bg: rgba(10, 10, 15, 0.9);
+    --panel-bg-color: rgba(10, 10, 15, 0.8);
+    --artist-bg: #111;
+    --mystery-bg: #0f0f0f;
+    --slideshow-bg: #111;
+    --merch-bg: #111;
+    --footer-color: #666;
+}
+
+/* Variabel Warna untuk Mode Siang */
+[data-theme="light"] {
+    --primary-color: #000000;
+    --background-color: #f0f8ff;
+    --panel-bg: #ffffff;
+    --accent-color: #04eff6; /* Cyan */
+    --text-color: #333333;
+    --border-color: #e0e0e0;
+    --aurora-opacity-1: 0.3;
+    --aurora-opacity-2: 0.4;
+    --header-bg: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(240, 248, 255, 0.95) 70%);
+    --nav-bg: rgba(255, 255, 255, 0.9);
+    --panel-bg-color: rgba(255, 255, 255, 0.9);
+    --artist-bg: #f5f5f5;
+    --mystery-bg: #e0f7fa;
+    --slideshow-bg: #f5f5f5;
+    --merch-bg: #f5f5f5;
+    --footer-color: #777;
+}
+
+/* --- Background Animasi Aurora --- */
+body {
+    font-family: var(--font-body);
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    overflow-x: hidden; /* Mencegah scroll horizontal muncul */
+    position: relative; /* Diperlukan untuk positioning pseudo-element */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Lapisan Aurora Pertama */
+body::before {
+    content: '';
+    position: fixed; /* Fixed agar tidak bergerak saat scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(130deg, 
+        rgba(4, 239, 246, var(--aurora-opacity-1)) 0%, 
+        rgba(4, 239, 246, calc(var(--aurora-opacity-1) + 0.2)) 40%, 
+        rgba(2, 209, 215, var(--aurora-opacity-1)) 60%, 
+        transparent 100%);
+    z-index: -1; /* Letakkan di belakang semua konten */
+    filter: blur(60px); /* Efek blur untuk membuatnya menyerupai cahaya */
+    animation: aurora-1 20s ease-in-out infinite;
+    transition: opacity 0.3s ease;
+    will-change: transform, opacity; /* Optimasi performa */
+    backface-visibility: hidden; /* Mengurangi repaint */
+}
+
+/* Lapisan Aurora Kedua */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at bottom, 
+        rgba(4, 239, 246, var(--aurora-opacity-2)) 0%, 
+        rgba(2, 209, 215, calc(var(--aurora-opacity-2) - 0.1)) 50%, 
+        transparent 70%);
+    z-index: -1;
+    filter: blur(80px);
+    animation: aurora-2 25s ease-in-out infinite reverse; /* Arah animasi berlawanan */
+    transition: opacity 0.3s ease;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+}
+
+/* Definisi Animasi untuk Aurora */
+@keyframes aurora-1 {
+    0%, 100% {
+        transform: translateX(-10%) translateY(-10%) rotate(0deg) scale(1);
+        opacity: 0.4;
+    }
+    50% {
+        transform: translateX(10%) translateY(10%) rotate(180deg) scale(1.2);
+        opacity: 0.6;
+    }
+}
+
+@keyframes aurora-2 {
+    0%, 100% {
+        transform: translateX(10%) translateY(10%) rotate(0deg) scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateX(-10%) translateY(-10%) rotate(-180deg) scale(1.3);
+        opacity: 0.5;
+    }
+}
+
+/* --- Theme Toggle --- */
+.theme-toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 30px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theme-icon {
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.theme-toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.theme-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: 0.4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--accent-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* --- Header & Navigasi --- */
+header {
+    text-align: center;
+    padding: 80px 20px;
+    background: var(--header-bg);
+    backdrop-filter: blur(5px); /* Memberikan efek blur pada header */
+    transition: background 0.3s ease;
+}
+
+/* Gaya untuk Logo Event */
+.event-logo {
+    display: block; /* Membuatnya menjadi elemen blok */
+    max-width: 120px; /* Ukuran maksimum logo */
+    width: 15%; /* Lebar responsif */
+    height: auto; /* Mempertahankan aspek rasio */
+    margin: 0 auto 25px auto; /* Center logo dan beri jarak ke bawah */
+}
+
+/* Gaya untuk Judul Utama "SPEKTAMAGIS" */
+.main-title {
+    font-family: var(--font-header);
+    font-size: 6rem;
+    margin: 0;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+header .tagline {
+    font-family: var(--font-header);
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    margin-top: 5px; /* Sedikit menambah jarak dengan judul */
+    letter-spacing: 2px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s ease;
+}
+
+/* Perubahan: Menambahkan transisi untuk transform */
+nav a {
+    font-family: var(--font-header);
+    color: var(--primary-color);
+    text-decoration: none;
+    margin: 0 25px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    transition: color 0.3s ease, transform 0.3s ease; /* Perubahan */
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+/* Perubahan: Menambahkan efek hover yang lebih halus */
+nav a:hover {
+    color: var(--accent-color);
+    transform: translateY(-2px) translateZ(0); /* Perubahan: Efek angkat halus dengan hardware acceleration */
+}
+
+nav a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* --- Panel & Konten Utama --- */
+.panel {
+    padding: 60px 40px;
+    max-width: 900px;
+    margin: 50px auto;
+    background-color: var(--panel-bg-color);
+    backdrop-filter: blur(10px); /* Efek glassmorphism */
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(4, 239, 246, 0.1);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.panel h2 {
+    font-family: var(--font-header);
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.panel h2::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 4px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent-color);
+    border-radius: 2px;
+}
+
+.panel p {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-color);
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* --- Spesifik Panel --- */
+#event .event-details {
+    text-align: center;
+    font-size: 1.4rem;
+    font-family: var(--font-body);
+    margin-bottom: 30px; /* Beri jarak dengan countdown */
+}
+
+/* Perbaikan: Gaya untuk detail event agar rata tengah */
+#event .event-details p {
+    margin: 10px 0;
+}
+
+/* Gaya untuk Countdown Timer */
+#countdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    font-family: var(--font-header);
+}
+
+.countdown-item {
+    text-align: center;
+    background-color: rgba(4, 239, 246, 0.1);
+    border: 1px solid var(--accent-color);
+    border-radius: 10px;
+    padding: 15px 20px;
+    min-width: 80px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.countdown-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(4, 239, 246, 0.3);
+}
+
+.countdown-value {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    line-height: 1;
+}
+
+.countdown-label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin-top: 5px;
+    text-transform: uppercase;
+}
+
+/* Gaya untuk Lokasi Event (Diperbarui) */
+.event-location-details {
+    display: flex;
+    justify-content: center; /* Perubahan: Hanya foto yang tersisa, jadi rata tengah */
+    margin-top: 40px;
+}
+
+.location-photo {
+    max-width: 600px; /* Batasi lebar foto agar tidak terlalu besar */
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.location-photo:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(4, 239, 246, 0.2);
+}
+
+.artist-list {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+/* Gaya Baru untuk Artist Card (Diperbarui) */
+.artist-card {
+    width: 350px;
+    background-color: var(--artist-bg);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+.artist-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(4, 239, 246, 0.4);
+    border-color: var(--accent-color);
+}
+
+/* Gaya untuk foto artis */
+.artist-photo {
+    width: 100%;
+    height: 200px; /* Tetapkan tinggi foto */
+    object-fit: cover; /* Potong gambar agar sesuai */
+    display: block;
+}
+
+/* Gaya untuk konten artis (nama, link, deskripsi) */
+.artist-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Biarkan konten mengisi sisa ruang */
+}
+
+/* Gaya untuk header artis (nama dan link spotify) */
+.artist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Gaya untuk nama artis */
+.artist-name {
+    font-family: var(--font-header);
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+/* Gaya untuk Link Logo Spotify */
+.spotify-link {
+    color: #1DB954; /* Warna resmi Spotify */
+    font-size: 1.8rem; /* Sedikit lebih kecil */
+    text-decoration: none;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.spotify-link:hover {
+    transform: scale(1.1);
+    color: #1ed760; /* Warna Spotify saat hover */
+}
+
+/* Perbaikan: Gaya untuk deskripsi artis agar lebih terbaca */
+.artist-description {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-weight: 500; /* Perbaikan: Font sedikit lebih tebal */
+    line-height: 1.6;
+    text-align: left; /* Rata kiri untuk keterbacaan */
+}
+
+/* Gaya untuk Kartu Mystery Guest (Baru) */
+.mystery-card {
+    background-color: var(--mystery-bg);
+    border: 2px solid var(--accent-color); /* Border solid yang mencolok */
+    box-shadow: 0 0 20px rgba(4, 239, 246, 0.3); /* Bayangan cahaya cyan */
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.mystery-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 30px rgba(4, 239, 246, 0.5); /* Bayangan lebih terang saat hover */
+    border-color: var(--primary-color); /* Border berubah menjadi putih saat hover */
+}
+
+.mystery-content {
+    text-align: center;
+}
+
+.mystery-title {
+    font-family: var(--font-header);
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(4, 239, 246, 0.7); /* Efek glow pada teks */
+    letter-spacing: 2px;
+}
+
+.mystery-hint {
+    font-family: var(--font-header);
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-top: 10px;
+    animation: pulse 2s infinite; /* Animasi berdenyut pada tanda tanya */
+}
+
+/* Definisi Animasi Pulse untuk tanda tanya */
+@keyframes pulse {
+    0% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+}
+
+/* --- Gaya untuk Slideshow Gallery (Baru) --- */
+.slideshow-container {
+    max-width: 800px;
+    position: relative;
+    margin: auto;
+    background-color: var(--slideshow-bg);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+
+.slide {
+    display: none; /* Sembunyikan semua slide secara default */
+    text-align: center;
+}
+
+.slide img {
+    width: 100%;
+    border-radius: 15px 15px 0 0;
+}
+
+.throwback-caption {
+    padding: 15px;
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: var(--slideshow-bg);
+    border-radius: 0 0 15px 15px;
+}
+
+/* Gaya untuk Tombol Navigasi */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 24px;
+    transition: 0.3s ease;
+    border-radius: 0 5px 5px 0;
+    user-select: none;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.next {
+    right: 0;
+    border-radius: 5px 0 0 5px;
+}
+
+.prev:hover, .next:hover {
+    background-color: var(--accent-color);
+    color: var(--background-color);
+}
+
+/* Gaya untuk Indikator Dots */
+.dot-container {
+    text-align: center;
+    padding: 15px 0;
+    background-color: var(--slideshow-bg);
+    border-radius: 0 0 15px 15px;
+    transition: background-color 0.3s ease;
+}
+
+.dot {
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: var(--border-color);
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.active, .dot:hover {
+    background-color: var(--accent-color);
+}
+
+/* --- Gaya untuk Merchandise Slider (Baru) --- */
+.merch-slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px; /* Sama dengan panel */
+    margin: 0 auto;
+}
+
+.merch-slider-wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 25px;
+    padding: 10px 50px 10px 10px; /* Padding kanan lebih besar untuk ruang tombol */
+    /* Menyembunyikan scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.merch-slider-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.merch-item-wrapper {
+    flex: 0 0 auto; /* Mencegah item menyusut */
+    width: 220px; /* Lebar tetap untuk setiap item */
+    text-align: center;
+    background-color: var(--merch-bg);
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.merch-item-wrapper:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(4, 239, 246, 0.3);
+}
+
+.merch-item {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.merch-item-wrapper p {
+    font-size: 1rem;
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.merch-price {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--accent-color);
+    margin: 5px 0;
+}
+
+/* Gaya untuk Tombol Panah Slider */
+.merch-prev, .merch-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(4, 239, 246, 0.7);
+    color: var(--background-color);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.merch-prev {
+    left: 5px;
+}
+
+.merch-next {
+    right: 5px;
+}
+
+.merch-prev:hover, .merch-next:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Gaya untuk Tombol Add to Cart */
+.add-to-cart-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px;
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.add-to-cart-btn:hover {
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    transform: scale(1.05);
+}
+
+/* --- Shopping Cart Styles --- */
+.cart-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(4, 239, 246, 0.3);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.cart-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(4, 239, 246, 0.4);
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4757;
+    color: white;
+    font-size: 0.8rem;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.cart-modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.cart-modal-content {
+    background-color: var(--panel-bg);
+    margin: 5% auto;
+    padding: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cart-header h3 {
+    margin: 0;
+    font-family: var(--font-header);
+    color: var(--primary-color);
+}
+
+.close-cart {
+    color: var(--text-color);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-cart:hover {
+    color: var(--accent-color);
+}
+
+.cart-items {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item-info h4 {
+    margin: 0 0 5px 0;
+    font-family: var(--font-body);
+    color: var(--primary-color);
+}
+
+.cart-item-info p {
+    margin: 0;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-item-quantity button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--border-color);
+    background-color: transparent;
+    color: var(--primary-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cart-item-quantity button:hover {
+    background-color: var(--accent-color);
+    color: var(--background-color);
+}
+
+.remove-item {
+    background: none;
+    border: none;
+    color: #ff4757;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.remove-item:hover {
+    transform: scale(1.2);
+}
+
+.cart-footer {
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-header);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.checkout-btn:hover {
+    background-color: #03c7d0;
+    transform: translateY(-2px);
+}
+
+.notification {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(4, 239, 246, 0.3);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1002;
+}
+
+.notification.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* --- Tombol Tiket (CTA) --- */
+.cta-button {
+    font-family: var(--font-header);
+    display: inline-block;
+    margin-top: 30px;
+    padding: 18px 50px;
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    transition: all 0.3s ease; /* Perubahan: Menggunakan 'all' untuk transisi yang lebih mulus */
+    box-shadow: 0 5px 15px rgba(4, 239, 246, 0.3);
+}
+
+/* Perubahan: Menambahkan efek hover yang lebih halus dan terintegrasi */
+.cta-button:hover {
+    background-color: #03c7d0;
+    transform: translateY(-2px); /* Perubahan: Efek angkat lebih halus */
+    box-shadow: 0 7px 20px rgba(4, 239, 246, 0.4); /* Perubahan: Bayangan lebih terintegrasi */
+}
+
+/* Perubahan: Gaya untuk Tombol CTA yang Lebih Kecil */
+.cta-button-sm {
+    display: block; /* Perubahan: Menjadi block untuk bisa di-center */
+    margin: 30px auto 0 auto; /* Perubahan: Margin atas dan bawah auto untuk center */
+    padding: 12px 35px; /* Perubahan: Padding lebih kecil */
+    font-size: 1.1rem; /* Perubahan: Font lebih kecil */
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    text-decoration: none;
+    font-family: var(--font-header);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(4, 239, 246, 0.2);
+}
+
+.cta-button-sm:hover {
+    background-color: #03c7d0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(4, 239, 246, 0.3);
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 60px;
+    border-top: 1px solid var(--border-color);
+    color: var(--footer-color);
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* --- Gaya untuk Social Media Links --- */
+.social-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.social-links a {
+    color: var(--text-color);
+    font-size: 1.8rem;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+    transform: scale(1.2);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 4rem;
+    }
+    
+    .tagline {
+        font-size: 1.4rem;
+    }
+    
+    nav {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    nav a {
+        margin: 0 15px;
+    }
+    
+    #countdown {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .countdown-item {
+        min-width: 70px;
+        padding: 10px 15px;
+    }
+    
+    .countdown-value {
+        font-size: 2rem;
+    }
+    
+    .artist-card {
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    .slide img {
+        height: 300px;
+    }
+    
+    .merch-slider-container {
+        padding: 0 2rem;
+    }
+    
+    .merch-item-wrapper {
+        width: 180px;
+    }
+    
+    .cart-modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .cart-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+    }
+    
+    .cart-count {
+        width: 20px;
+        height: 20px;
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 3rem;
+    }
+    
+    .tagline {
+        font-size: 1.2rem;
+    }
+    
+    .countdown-item {
+        min-width: 60px;
+        padding: 8px 12px;
+    }
+    
+    .countdown-value {
+        font-size: 1.5rem;
+    }
+    
+    .merch-slider-container {
+        padding: 0 1.5rem;
+    }
+    
+    .merch-item-wrapper {
+        width: 150px;
+    }
+}
+
+/* --- Accessibility Enhancements --- */
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    body::before, body::after {
+        animation: none;
+    }
+    
+    .mystery-hint {
+        animation: none;
+    }
+    
+    * {
+        transition: none !important;
+    }
+}
+
+/* Focus styles for better keyboard navigation */
+nav a:focus, .add-to-cart-btn:focus, .cta-button:focus, .checkout-btn:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    body::before, body::after {
+        display: none !important;
+    }
+    
+    .cart-icon, .cart-modal, .theme-toggle-container {
+        display: none !important;
+    }
+    
+    .panel {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
