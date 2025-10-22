@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spektamagis - Heartbreak Playground</title>
+    
+    <!-- Link ke Font Maragsa & Poppins dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Maragsa&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Link ke Font Awesome untuk Ikon Media Sosial & Shopping Cart -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Link ke file CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <!-- Logo ditambahkan di atas judul -->
+        <img src="https://z-cdn-media.chatglm.cn/files/2f46d334-f3d3-427c-92a2-ee5fae4559de_SpektalogoBluegreen.png?auth_key=1792129797-25365b276e0c45ed89e246a2a2c1b731-0-3c0a2ff26ba82fd6c5a571ea6a93a728" alt="Spektamagis Logo" class="event-logo">
+        
+        <h1 class="main-title">SPEKTAMAGIS</h1>
+        <p class="tagline">Heartbreak Playground</p>
+        
+        <!-- Toggle untuk Mode Siang/Malam -->
+        <div class="theme-toggle-container">
+            <span class="theme-icon"><i class="fas fa-sun"></i></span>
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-toggle-checkbox">
+                <span class="slider"></span>
+            </label>
+            <span class="theme-icon"><i class="fas fa-moon"></i></span>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#event">Event</a>
+        <a href="#lineup">Line Up</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#merchandise">Merchandise</a>
+        <a href="#ticket">Ticket</a>
+    </nav>
+
+    <main>
+        <section id="about" class="panel">
+            <h2>About</h2>
+            <p>Spektamagis Vol. 2 merupakan konser kolaboratif lintas komunitas yang menghadirkan pengalaman musik, cerita, dan kebersamaan dalam satu panggung penuh warna.</p>
+            <p>Heartbreak Playground menjadi tema besar Spektamagis Vol. 2—sebuah perayaan tentang naik-turunnya rasa, patah hati yang dirayakan bersama, dan tawa di tengah luka.</p>
+            <p>Layaknya taman bermain, setiap sudutnya menghadirkan pengalaman emosional yang beragam: tempat untuk menangis, tertawa, bernyanyi, bahkan berdansa.</p>
+        </section>
+
+        <section id="event" class="panel">
+            <h2>Event</h2>
+            <!-- Perubahan: Detail event rata tengah -->
+            <div class="event-details text-center">
+                <p><strong>Lokasi:</strong> Kalawa Convention Hall, Palangka Raya</p>
+                <p><strong>Tanggal:</strong> 6 Februari 2026</p>
+            </div>
+            <!-- Countdown Timer -->
+            <div id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-value" id="days">00</span>
+                    <span class="countdown-label">Hari</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="hours">00</span>
+                    <span class="countdown-label">Jam</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="minutes">00</span>
+                    <span class="countdown-label">Menit</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="seconds">00</span>
+                    <span class="countdown-label">Detik</span>
+                </div>
+            </div>
+            <!-- Perubahan: Hanya foto lokasi yang tersisa -->
+            <div class="event-location-details">
+                <img src="kalawa.jpg" alt="Foto Kalawa Convention Hall" class="location-photo">
+            </div>
+        </section>
+
+        <section id="lineup" class="panel">
+            <h2>Line Up</h2>
+            <div class="artist-list">
+                <!-- Artist Card untuk Juicy Luicy dengan struktur baru -->
+                <div class="artist-card">
+                    <img src="https://z-cdn-media.chatglm.cn/files/edab2bf5-4ae5-4708-92f4-322f88c7d662_juicy%20luicy.png?auth_key=1792131790-30c8e330da014e0d97a12fb0962572e5-0-e15b552ad71b3fa56cb180b076ca12cf" alt="Juicy Luicy" class="artist-photo">
+                    <div class="artist-content">
+                        <div class="artist-header">
+                            <div class="artist-name">Juicy Luicy</div>
+                            <!-- Link Logo Spotify -->
+                            <a href="https://open.spotify.com/artist/3tMTXQyRrPmMyHv5SoC0TV?si=SF_h-yO5QJaBZp8dhfzCbg" target="_blank" rel="noopener noreferrer" class="spotify-link" aria-label="Juicy Luicy on Spotify">
+                                <i class="fab fa-spotify"></i>
+                            </a>
+                        </div>
+                        <p class="artist-description">Juicy Luicy adalah band pop asal Bandung yang terkenal dengan lagu tentang cinta dan patah hati yang relate sama banyak orang. Lewat lagu-lagu kayak "Lantas", "Terlalu Tinggi", dan "Tampar", mereka selalu berhasil nyentuh perasaan dengan lirik yang sederhana tapi ngena. Di Spektamagis: Heartbreak Playground, Juicy Luicy hadir buat menemani kamu lewat perjalanan penuh rasa — dari yang patah, belajar peluk, sampai akhirnya pulih bareng-bareng lewat musik.</p>
+                    </div>
+                </div>
+                
+                <!-- Artist Card untuk Oomleo Berkaraoke ft El Rumi -->
+                <div class="artist-card">
+                    <img src="https://z-cdn-media.chatglm.cn/files/2e62df4e-a62d-40fa-81a9-4e87c522bd44_oom%20leo.png?auth_key=1792238486-87f5d8f1e79949e999b8cc03efab5413-0-18bda6851d8ebea7edebe580b25aa45a" alt="Oomleo Berkaraoke ft El Rumi" class="artist-photo">
+                    <div class="artist-content">
+                        <div class="artist-header">
+                            <div class="artist-name">Oomleo Berkaraoke ft El Rumi</div>
+                            <!-- Tidak ada link Spotify untuk artis ini -->
+                        </div>
+                        <p class="artist-description">Oom Leo, sang pemandu pesta karaoke legendaris, kembali membawa energi khasnya — spontan, jenaka, dan penuh nostalgia bersama El Rumi, mereka menghadirkan kolaborasi unik yang memadukan tawa dan luka, jingkrak dan kenangan. Di Heartbreak Playground, panggung mereka bukan sekadar tempat bernyanyi — tapi arena buat melepas beban dengan berkaraoke ria.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="panel">
+            <h2>Gallery</h2>
+            <!-- Slideshow Container -->
+            <div class="slideshow-container">
+                <!-- Tombol Navigasi -->
+                <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+                <a class="next" onclick="changeSlide(1)">&#10095;</a>
+
+                <!-- Wrapper untuk Slides dengan Gambar Placeholder Baru -->
+                <div class="slides-wrapper">
+                    <div class="slide">
+                        <img src="throwback1.jpg" alt="Kerumunan penonton yang antusias" class="throwback-photo">
+                        <p class="throwback-caption">Energi Kerumunan di Spektamagis Vol. 1</p>
+                    </div>
+                    <div class="slide">
+                        <img src="throwback2.jpg" alt="Kerumunan penonton yang antusias" class="throwback-photo">
+                        <p class="throwback-caption">Energi Kerumunan di Spektamagis Vol. 1</p>
+                    </div>
+                    <div class="slide">
+                        <img src="throwback3.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                         <img src="throwback4.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                        <img src="throwback5.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                        <img src="throwback6.jpg" alt="Kerumunan penonton yang antusias" class="throwback-photo">
+                        <p class="throwback-caption">Energi Kerumunan di Spektamagis Vol. 1</p>
+                    </div>
+                    <div class="slide">
+                        <img src="throwback7.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                         <img src="throwback8.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                        <img src="throwback9.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                        <img src="throwback10.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Energi Kerumunan di Spektamagis Vol. 1</p>
+                    </div>
+                    <div class="slide">
+                        <img src="throwback11.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                        <img src="throwback12.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                        <img src="throwback13.jpg" alt="Sebuah band sedang bermain musik" class="throwback-photo">
+                        <p class="throwback-caption">Intim Panggung dan Performa Penuh Energi</p>
+                    </div>
+                </div>
+                
+                <!-- Indikator Dots (Diperbaiki: Sesuaikan jumlahnya dengan slide) -->
+                <div class="dot-container">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                    <span class="dot" onclick="currentSlide(5)"></span>
+                    <span class="dot" onclick="currentSlide(6)"></span>
+                    <span class="dot" onclick="currentSlide(7)"></span>
+                    <span class="dot" onclick="currentSlide(8)"></span>
+                    <span class="dot" onclick="currentSlide(9)"></span>
+                    <span class="dot" onclick="currentSlide(10)"></span>
+                    <span class="dot" onclick="currentSlide(11)"></span>
+                    <span class="dot" onclick="currentSlide(12)"></span>
+                    <span class="dot" onclick="currentSlide(13)"></span>
+                </div>
+            </div>
+        </section>
+
+        <section id="merchandise" class="panel">
+            <h2>Merchandise</h2>
+            <!-- Horizontal Slider Container -->
+            <div class="merch-slider-container">
+                <button class="merch-prev" id="merchPrevBtn">&#10094;</button>
+                <button class="merch-next" id="merchNextBtn">&#10095;</button>
+                <div class="merch-slider-wrapper">
+                    <!-- Merch Item 1 -->
+                    <div class="merch-item-wrapper" data-product-name="Gelang Spektamagis" data-price="20000">
+                        <img src="https://z-cdn-media.chatglm.cn/files/b22daeb8-2465-468c-9b99-9bc846041bcf_Gelang%20karet%202.jpg?auth_key=1792131314-e6d07734e9a841dc904d03b79401da8e-0-c6589909e3e45ab97876e1f1e76ca40d" alt="Spektamagis Silicone Wristbands" class="merch-item">
+                        <p>Gelang Spektamagis</p>
+                        <p class="merch-price">Rp 20.000</p>
+                        <a href="#" class="add-to-cart-btn" onclick="addToCart('Gelang Spektamagis', 20000); return false;">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </a>
+                    </div>
+                    <!-- Merch Item 2 -->
+                    <div class="merch-item-wrapper" data-product-name="Lanyard & Kartu" data-price="20000">
+                        <img src="https://z-cdn-media.chatglm.cn/files/73f4c093-b01a-4678-883c-c81e441f0aea_lanyard%202.jpg?auth_key=1792131314-10915567183341c0a30838b390a491ff-0-7e905ad49529d500474ca2bf40729143" alt="Spektamagis Lanyard and Card" class="merch-item">
+                        <p>Lanyard & Kartu</p>
+                        <p class="merch-price">Rp 20.000</p>
+                        <a href="#" class="add-to-cart-btn" onclick="addToCart('Lanyard & Kartu', 20000); return false;">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </a>
+                    </div>
+                    <!-- Merch Item 3 -->
+                    <div class="merch-item-wrapper" data-product-name="Kaos Oversize" data-price="200000">
+                        <img src="https://z-cdn-media.chatglm.cn/files/e17811cc-26bb-4c20-9992-5ef2ea40774e_Oversize%202.jpg?auth_key=1792131314-80a894c337e743c6890ba33c4c0e1e92-0-80de4a9ebca63d8472fea4fa8b1c6bc3" alt="Spektamagis Oversized T-shirt" class="merch-item">
+                        <p>Kaos Oversize</p>
+                        <p class="merch-price">Rp 200.000</p>
+                        <a href="#" class="add-to-cart-btn" onclick="addToCart('Kaos Oversize', 200000); return false;">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </a>
+                    </div>
+                    <!-- Merch Item 4 -->
+                    <div class="merch-item-wrapper" data-product-name="Tote Bag" data-price="100000">
+                        <img src="https://z-cdn-media.chatglm.cn/files/c99f9f11-c11f-4c64-8389-978d145c91e9_Tote%20bag%202.jpg?auth_key=1792131314-74974f83ea3a4eb8a97dccf84e1b0028-0-2345b149a403ef5db6bd01b23041bc94" alt="Spektamagis Tote Bag" class="merch-item">
+                        <p>Tote Bag</p>
+                        <p class="merch-price">Rp 100.000</p>
+                        <a href="#" class="add-to-cart-btn" onclick="addToCart('Tote Bag', 100000); return false;">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ticket" class="panel">
+            <h2>Ticket</h2>
+            <p>Dapatkan tiket Anda sekarang juga dan jangan lewatkan pengalaman magis ini!</p>
+            <!-- Perubahan: Tombol CTA lebih kecil dan rata tengah -->
+            <a href="https://www.yesplis.com" target="_blank" class="cta-button-sm">Beli Tiket di Yesplis.com</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Spektamagis. All Rights Reserved.</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/spektamagis" target="_blank" rel="noopener noreferrer" aria-label="Instagram Spektamagis">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@spektamagis_" target="_blank" rel="noopener noreferrer" aria-label="TikTok Spektamagis">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://www.youtube.com/@Spektamagis" target="_blank" rel="noopener noreferrer" aria-label="YouTube Spektamagis">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-modal-content">
+            <div class="cart-header">
+                <h3>Keranjang Belanja</h3>
+                <span class="close-cart" onclick="closeCart()">&times;</span>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total: </span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Icon -->
+    <div class="cart-icon" onclick="openCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cart-count">0</span>
+    </div>
+
+    <!-- Script untuk Countdown Timer -->
+    <script>
+        // Set tanggal target countdown ke 2026
+        const countDownDate = new Date("Feb 6, 2026 19:00:00").getTime();
+
+        // Perbarui countdown setiap 1 detik
+        const countdownFunction = setInterval(function() {
+            // Dapatkan tanggal dan waktu hari ini
+            const now = new Date().getTime();
+            
+            // Hitung jarak waktu antara sekarang dan tanggal target
+            const distance = countDownDate - now;
+            
+            // Perhitungan waktu untuk hari, jam, menit, dan detik
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // Tampilkan hasil di elemen dengan id="countdown"
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+            
+            // Jika countdown selesai, tampilkan pesan
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("countdown").innerHTML = "EVENT SUDAH DIMULAI!";
+            }
+        }, 1000);
+    </script>
+
+    <!-- Script untuk Slideshow Gallery -->
+    <script>
+        let slideIndex = 1;
+        showSlide(slideIndex);
+
+        function changeSlide(n) {
+            showSlide(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlide(slideIndex = n);
+        }
+
+        function showSlide(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+            
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+
+    <!-- Script untuk Merchandise Slider & Shopping Cart -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const merchWrapper = document.querySelector('.merch-slider-wrapper');
+            const prevBtn = document.getElementById('merchPrevBtn');
+            const nextBtn = document.getElementById('merchNextBtn');
+            
+            // Fungsi untuk scroll slider
+            function scrollSlider(direction) {
+                const scrollAmount = merchWrapper.clientWidth; // Scroll sejauh lebar container
+                if (direction === 'next') {
+                    merchWrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                } else {
+                    merchWrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                }
+            }
+
+            prevBtn.addEventListener('click', () => scrollSlider('prev'));
+            nextBtn.addEventListener('click', () => scrollSlider('next'));
+        });
+
+        // Shopping Cart Functionality
+        let cart = [];
+        
+        function addToCart(productName, price) {
+            // Check if product already in cart
+            const existingItem = cart.find(item => item.name === productName);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: productName,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showNotification(`${productName} ditambahkan ke keranjang!`);
+        }
+        
+        function removeFromCart(productName) {
+            cart = cart.filter(item => item.name !== productName);
+            updateCart();
+        }
+        
+        function updateQuantity(productName, change) {
+            const item = cart.find(item => item.name === productName);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productName);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+        
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+            
+            // Clear cart items
+            cartItems.innerHTML = '';
+            
+            // Update cart count
+            let totalItems = 0;
+            let totalPrice = 0;
+            
+            // Add each item to cart display
+            cart.forEach(item => {
+                totalItems += item.quantity;
+                totalPrice += item.price * item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <p>Rp ${item.price.toLocaleString('id-ID')}</p>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <button onclick="updateQuantity('${item.name}', -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="updateQuantity('${item.name}', 1)">+</button>
+                    </div>
+                    <button class="remove-item" onclick="removeFromCart('${item.name}')">&times;</button>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+            
+            // Update cart count and total
+            cartCount.textContent = totalItems;
+            cartTotal.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+            
+            // Save cart to localStorage
+            localStorage.setItem('spektamagisCart', JSON.stringify(cart));
+        }
+        
+        function openCart() {
+            document.getElementById('cart-modal').style.display = 'block';
+        }
+        
+        function closeCart() {
+            document.getElementById('cart-modal').style.display = 'none';
+        }
+        
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Keranjang belanja Anda kosong!');
+                return;
+            }
+            
+            // Create WhatsApp message
+            let message = 'Halo, saya ingin memesan merchandise Spektamagis:\n\n';
+            let totalPrice = 0;
+            
+            cart.forEach(item => {
+                message += `${item.name} x ${item.quantity} = Rp ${(item.price * item.quantity).toLocaleString('id-ID')}\n`;
+                totalPrice += item.price * item.quantity;
+            });
+            
+            message += `\nTotal: Rp ${totalPrice.toLocaleString('id-ID')}`;
+            
+            const phoneNumber = '+62-813-1608-8558'; // Updated WhatsApp number
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber.replace(/[^0-9]/g, '')}?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+            
+            // Hide and remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        
+        // Load cart from localStorage on page load
+        window.addEventListener('load', function() {
+            const savedCart = localStorage.getItem('spektamagisCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+            }
+        });
+        
+        // Close cart when clicking outside
+        window.onclick = function(event) {
+            const cartModal = document.getElementById('cart-modal');
+            if (event.target === cartModal) {
+                closeCart();
+            }
+        }
+    </script>
+
+    <!-- Script untuk Theme Toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle-checkbox');
+            const currentTheme = localStorage.getItem('theme');
+            
+            // Set tema berdasarkan localStorage atau preferensi sistem
+            if (currentTheme) {
+                document.documentElement.setAttribute('data-theme', currentTheme);
+                
+                if (currentTheme === 'dark') {
+                    themeToggle.checked = true;
+                }
+            } else {
+                // Cek preferensi sistem
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    themeToggle.checked = true;
+                }
+            }
+            
+            // Event listener untuk toggle
+            themeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
