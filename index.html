@@ -1050,14 +1050,6 @@
 
         /* --- Responsive Design --- */
         @media (max-width: 768px) {
-            .main-title {
-                font-size: 4rem;
-            }
-            
-            .tagline {
-                font-size: 1.4rem;
-            }
-            
             nav {
                 overflow-x: auto;
                 white-space: nowrap;
@@ -1075,10 +1067,6 @@
             .countdown-item {
                 min-width: 70px;
                 padding: 10px 15px;
-            }
-            
-            .countdown-value {
-                font-size: 2rem;
             }
             
             .artist-card {
@@ -1117,21 +1105,9 @@
         }
 
         @media (max-width: 480px) {
-            .main-title {
-                font-size: 3rem;
-            }
-            
-            .tagline {
-                font-size: 1.2rem;
-            }
-            
             .countdown-item {
                 min-width: 60px;
                 padding: 8px 12px;
-            }
-            
-            .countdown-value {
-                font-size: 1.5rem;
             }
             
             .merch-slider-container {
@@ -1260,6 +1236,21 @@
         <section id="lineup" class="panel">
             <h2>Line Up</h2>
             <div class="artist-list">
+                <!-- Artist Card untuk Juicy Luicy -->
+                <div class="artist-card">
+                    <img src="https://z-cdn-media.chatglm.cn/files/edab2bf5-4ae5-4708-92f4-322f88c7d662_juicy%20luicy.png?auth_key=1792131790-30c8e330da014e0d97a12fb0962572e5-0-e15b552ad71b3fa56cb180b076ca12cf" alt="Juicy Luicy" class="artist-photo">
+                    <div class="artist-content">
+                        <div class="artist-header">
+                            <div class="artist-name">Juicy Luicy</div>
+                            <!-- Link Logo Spotify -->
+                            <a href="https://open.spotify.com/artist/3tMTXQyRrPmMyHv5SoC0TV?si=SF_h-yO5QJaBZp8dhfzCbg" target="_blank" rel="noopener noreferrer" class="spotify-link" aria-label="Juicy Luicy on Spotify">
+                                <i class="fab fa-spotify"></i>
+                            </a>
+                        </div>
+                        <p class="artist-description">Juicy Luicy adalah band pop asal Bandung yang terkenal dengan lagu tentang cinta dan patah hati yang relate sama banyak orang. Lewat lagu-lagu kayak "Lantas", "Terlalu Tinggi", dan "Tampar", mereka selalu berhasil nyentuh perasaan dengan lirik yang sederhana tapi ngena. Di Spektamagis: Heartbreak Playground, Juicy Luicy hadir buat menemani kamu lewat perjalanan penuh rasa — dari yang patah, belajar peluk, sampai akhirnya pulih bareng-bareng lewat musik.</p>
+                    </div>
+                </div>
+                
                 <!-- Mystery Guest Card -->
                 <div class="artist-card mystery-card">
                     <div class="mystery-content">
@@ -1693,5 +1684,4 @@
         });
     </script>
 </body>
-
 </html>
