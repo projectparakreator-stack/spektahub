@@ -4,7 +4,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spektamagis - Heartbreak Playground</title>
+    <title>Spektamagis</title>
     
     <!-- Link ke Font Maragsa & Poppins dari Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -213,36 +213,24 @@
             background: var(--header-bg);
             backdrop-filter: blur(5px); /* Memberikan efek blur pada header */
             transition: background 0.3s ease;
+            position: relative;
         }
 
-        /* Gaya untuk Logo Event */
-        .event-logo {
-            display: block; /* Membuatnya menjadi elemen blok */
-            max-width: 120px; /* Ukuran maksimum logo */
-            width: 15%; /* Lebar responsif */
-            height: auto; /* Mempertahankan aspek rasio */
-            margin: 0 auto 25px auto; /* Center logo dan beri jarak ke bawah */
+        /* Gaya untuk Header Image */
+        .header-image {
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(4, 239, 246, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Gaya untuk Judul Utama "SPEKTAMAGIS" */
-        .main-title {
-            font-family: var(--font-header);
-            font-size: 6rem;
-            margin: 0;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        header .tagline {
-            font-family: var(--font-header);
-            font-size: 1.8rem;
-            color: var(--accent-color);
-            margin-top: 5px; /* Sedikit menambah jarak dengan judul */
-            letter-spacing: 2px;
+        .header-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(4, 239, 246, 0.3);
         }
 
         nav {
@@ -1167,12 +1155,6 @@
 <body>
 
     <header>
-        <!-- Logo ditambahkan di atas judul -->
-        <img src="https://z-cdn-media.chatglm.cn/files/2f46d334-f3d3-427c-92a2-ee5fae4559de_SpektalogoBluegreen.png?auth_key=1792129797-25365b276e0c45ed89e246a2a2c1b731-0-3c0a2ff26ba82fd6c5a571ea6a93a728" alt="Spektamagis Logo" class="event-logo">
-        
-        <h1 class="main-title">SPEKTAMAGIS</h1>
-        <p class="tagline">Heartbreak Playground</p>
-        
         <!-- Toggle untuk Mode Siang/Malam -->
         <div class="theme-toggle-container">
             <span class="theme-icon"><i class="fas fa-sun"></i></span>
@@ -1182,6 +1164,9 @@
             </label>
             <span class="theme-icon"><i class="fas fa-moon"></i></span>
         </div>
+        
+        <!-- Header Image -->
+        <img src="https://z-cdn-media.chatglm.cn/files/6800ef5e-32c6-4228-8ce8-b8637e8af653_Header%20website.jpg?auth_key=1793193141-a430fe80d74549c6b9ebff3c2286973a-0-450ba43e54c2dde7c449e80c75da4cdb" alt="Spektamagis Header" class="header-image">
     </header>
 
     <nav>
@@ -1395,7 +1380,7 @@
             <h2>Ticket</h2>
             <p>Dapatkan tiket Anda sekarang juga dan jangan lewatkan pengalaman magis ini!</p>
             <!-- Perubahan: Tombol CTA lebih kecil dan rata tengah -->
-            <a href="https://www.yesplis.com" target="_blank" class="cta-button-sm">Beli Tiket di Yesplis.com</a>
+            <a href="https://www.yesplis.com/event/spektamagis-vol-2" target="_blank" class="cta-button-sm">Beli Tiket di Yesplis.com</a>
         </section>
     </main>
 
