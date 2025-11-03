@@ -281,6 +281,16 @@
             left: 0;
         }
 
+        /* Active state untuk navigasi */
+        nav a.active {
+            color: var(--accent-color);
+        }
+
+        nav a.active::after {
+            width: 100%;
+            left: 0;
+        }
+
         /* --- Panel & Konten Utama --- */
         .panel {
             padding: 60px 40px;
@@ -1036,6 +1046,60 @@
             transform: scale(1.2);
         }
 
+        /* --- About Panel Toggle --- */
+        .about-toggle {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+            max-width: 900px;
+        }
+
+        .about-toggle-btn {
+            background-color: var(--panel-bg-color);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-family: var(--font-header);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .about-toggle-btn:hover {
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            transform: translateY(-2px);
+        }
+
+        .about-toggle-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .about-toggle-btn.show-less i {
+            transform: rotate(180deg);
+        }
+
+        #about {
+            display: none;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s ease, padding 0.5s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        #about.show {
+            display: block;
+            max-height: 1000px;
+            opacity: 1;
+        }
+
         /* --- Responsive Design --- */
         @media (max-width: 768px) {
             nav {
@@ -1124,7 +1188,7 @@
         }
 
         /* Focus styles for better keyboard navigation */
-        nav a:focus, .add-to-cart-btn:focus, .cta-button:focus, .checkout-btn:focus {
+        nav a:focus, .add-to-cart-btn:focus, .cta-button:focus, .checkout-btn:focus, .about-toggle-btn:focus {
             outline: 2px solid var(--accent-color);
             outline-offset: 2px;
         }
@@ -1170,19 +1234,27 @@
     </header>
 
     <nav>
-        <a href="#about">About</a>
-        <a href="#event">Event</a>
-        <a href="#lineup">Line Up</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#merchandise">Merchandise</a>
-        <a href="#ticket">Ticket</a>
+        <a href="#about" onclick="navigateToSection('about', event)">About</a>
+        <a href="#event" onclick="navigateToSection('event', event)">Event</a>
+        <a href="#lineup" onclick="navigateToSection('lineup', event)">Line Up</a>
+        <a href="#gallery" onclick="navigateToSection('gallery', event)">Gallery</a>
+        <a href="#merchandise" onclick="navigateToSection('merchandise', event)">Merchandise</a>
+        <a href="#ticket" onclick="navigateToSection('ticket', event)">Ticket</a>
     </nav>
 
     <main>
+        <!-- About Toggle Button -->
+        <div class="about-toggle">
+            <button class="about-toggle-btn" id="aboutToggleBtn" onclick="toggleAbout()">
+                <span id="aboutToggleText">Tampilkan About</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+
         <section id="about" class="panel">
             <h2>About</h2>
             <p>Spektamagis Vol. 2 menghadirkan hiburan yang tidak hanya memukau secara audio dan visual, tetapi juga menggerakkan hati, ini bukan sekadar konser, melainkan ruang untuk menyalurkan emosi, merayakan rasa, dan menemukan kembali semangat bersama.</p>
-            <p>Heartbreak Playground menjadi tema besar Spektamagis Vol. 2, sebuah gerakan empati untuk menciptakan ruang yang aman, hangat, dan penuh penerimaan bagi semua orang, sebuah perayaan tentang naik-turunnya rasa, patah hati yang dirayakan bersama, dan tawa di tengah luka. Tahun 2026, Spektamagis memperluas maknanya lewat kampanye “No Space For Bullying” dan #HealNotHurt, yang menyoroti pentingnya kesadaran mental, empati sosial, dan komunikasi tanpa kekerasan.</p>
+            <p>Heartbreak Playground menjadi tema besar Spektamagis Vol. 2, sebuah gerakan empati untuk menciptakan ruang yang aman, hangat, dan penuh penerimaan bagi semua orang, sebuah perayaan tentang naik-turunnya rasa, patah hati yang dirayakan bersama, dan tawa di tengah luka. Tahun 2026, Spektamagis memperluas maknanya lewat kampanye "No Space For Bullying" dan #HealNotHurt, yang menyoroti pentingnya kesadaran mental, empati sosial, dan komunikasi tanpa kekerasan.</p>
             <p>Spektamagis Vol.2 ini adalah sebuah ajakan untuk saling memahami bukan menghakimi, untuk memilih pelukan daripada sekedar basa-basi. Spektamagis bukan hanya panggung musik, tetapi juga ruang untuk merayakan luka dengan cara yang sangat menghibur, hangat, dan penuh warna.</p>
             <p>P A T A H • P E L U K • P U L I H<p>
         </section>
@@ -1219,37 +1291,37 @@
             </div>
         </section>
 
- <section id="lineup" class="panel">
-    <h2>Line Up</h2>
-    <div class="artist-list">
-        <!-- Artist Card untuk Juicy Luicy -->
-        <div class="artist-card">
-            <img src="https://z-cdn-media.chatglm.cn/files/edab2bf5-4ae5-4708-92f4-322f88c7d662_juicy%20luicy.png?auth_key=1792131790-30c8e330da014e0d97a12fb0962572e5-0-e15b552ad71b3fa56cb180b076ca12cf" alt="Juicy Luicy" class="artist-photo">
-            <div class="artist-content">
-                <div class="artist-header">
-                    <div class="artist-name">Juicy Luicy</div>
-                    <!-- Link Logo Spotify -->
-                    <a href="https://open.spotify.com/artist/3tMTXQyRrPmMyHv5SoC0TV?si=SF_h-yO5QJaBZp8dhfzCbg" target="_blank" rel="noopener noreferrer" class="spotify-link" aria-label="Juicy Luicy on Spotify">
-                        <i class="fab fa-spotify"></i>
-                    </a>
+        <section id="lineup" class="panel">
+            <h2>Line Up</h2>
+            <div class="artist-list">
+                <!-- Artist Card untuk Juicy Luicy -->
+                <div class="artist-card">
+                    <img src="https://z-cdn-media.chatglm.cn/files/edab2bf5-4ae5-4708-92f4-322f88c7d662_juicy%20luicy.png?auth_key=1792131790-30c8e330da014e0d97a12fb0962572e5-0-e15b552ad71b3fa56cb180b076ca12cf" alt="Juicy Luicy" class="artist-photo">
+                    <div class="artist-content">
+                        <div class="artist-header">
+                            <div class="artist-name">Juicy Luicy</div>
+                            <!-- Link Logo Spotify -->
+                            <a href="https://open.spotify.com/artist/3tMTXQyRrPmMyHv5SoC0TV?si=SF_h-yO5QJaBZp8dhfzCbg" target="_blank" rel="noopener noreferrer" class="spotify-link" aria-label="Juicy Luicy on Spotify">
+                                <i class="fab fa-spotify"></i>
+                            </a>
+                        </div>
+                        <p class="artist-description">Juicy Luicy adalah band pop asal Bandung yang terkenal dengan lagu tentang cinta dan patah hati yang relate sama banyak orang. Lewat lagu-lagu kayak "Lantas", "Terlalu Tinggi", dan "Tampar", mereka selalu berhasil nyentuh perasaan dengan lirik yang sederhana tapi ngena. Di Spektamagis: Heartbreak Playground, Juicy Luicy hadir buat menemani kamu lewat perjalanan penuh rasa — dari yang patah, belajar peluk, sampai akhirnya pulih bareng-bareng lewat musik.</p>
+                    </div>
                 </div>
-                <p class="artist-description">Juicy Luicy adalah band pop asal Bandung yang terkenal dengan lagu tentang cinta dan patah hati yang relate sama banyak orang. Lewat lagu-lagu kayak "Lantas", "Terlalu Tinggi", dan "Tampar", mereka selalu berhasil nyentuh perasaan dengan lirik yang sederhana tapi ngena. Di Spektamagis: Heartbreak Playground, Juicy Luicy hadir buat menemani kamu lewat perjalanan penuh rasa — dari yang patah, belajar peluk, sampai akhirnya pulih bareng-bareng lewat musik.</p>
-            </div>
-        </div>
-        
-        <!-- Artist Card untuk Oomleo Berkaraoke ft El Rumi -->
-        <div class="artist-card">
-            <img src="https://z-cdn-media.chatglm.cn/files/2e62df4e-a62d-40fa-81a9-4e87c522bd44_oom%20leo.png?auth_key=1792238486-87f5d8f1e79949e999b8cc03efab5413-0-18bda6851d8ebea7edebe580b25aa45a" alt="Oomleo Berkaraoke ft El Rumi" class="artist-photo">
-            <div class="artist-content">
-                <div class="artist-header">
-                    <div class="artist-name">Oomleo Berkaraoke ft El Rumi</div>
-                    <!-- Tidak ada link Spotify untuk artis ini -->
+                
+                <!-- Artist Card untuk Oomleo Berkaraoke ft El Rumi -->
+                <div class="artist-card">
+                    <img src="https://z-cdn-media.chatglm.cn/files/2e62df4e-a62d-40fa-81a9-4e87c522bd44_oom%20leo.png?auth_key=1792238486-87f5d8f1e79949e999b8cc03efab5413-0-18bda6851d8ebea7edebe580b25aa45a" alt="Oomleo Berkaraoke ft El Rumi" class="artist-photo">
+                    <div class="artist-content">
+                        <div class="artist-header">
+                            <div class="artist-name">Oomleo Berkaraoke ft El Rumi</div>
+                            <!-- Tidak ada link Spotify untuk artis ini -->
+                        </div>
+                        <p class="artist-description">Oom Leo, sang pemandu pesta karaoke legendaris, kembali membawa energi khasnya — spontan, jenaka, dan penuh nostalgia bersama El Rumi, mereka menghadirkan kolaborasi unik yang memadukan tawa dan luka, jingkrak dan kenangan. Di Heartbreak Playground, panggung mereka bukan sekadar tempat bernyanyi — tapi arena buat melepas beban dengan berkaraoke ria.</p>
+                    </div>
                 </div>
-                <p class="artist-description">Oom Leo, sang pemandu pesta karaoke legendaris, kembali membawa energi khasnya — spontan, jenaka, dan penuh nostalgia bersama El Rumi, mereka menghadirkan kolaborasi unik yang memadukan tawa dan luka, jingkrak dan kenangan. Di Heartbreak Playground, panggung mereka bukan sekadar tempat bernyanyi — tapi arena buat melepas beban dengan berkaraoke ria.</p>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
         <section id="gallery" class="panel">
             <h2>Gallery</h2>
@@ -1672,10 +1744,98 @@
                 }
             });
         });
+
+        // Script untuk About Toggle
+        function toggleAbout() {
+            const aboutSection = document.getElementById('about');
+            const toggleBtn = document.getElementById('aboutToggleBtn');
+            const toggleText = document.getElementById('aboutToggleText');
+            
+            if (aboutSection.classList.contains('show')) {
+                aboutSection.classList.remove('show');
+                toggleBtn.classList.remove('show-less');
+                toggleText.textContent = 'Tampilkan About';
+            } else {
+                aboutSection.classList.add('show');
+                toggleBtn.classList.add('show-less');
+                toggleText.textContent = 'Sembunyikan About';
+            }
+        }
+
+        // Script untuk Navigasi yang Diperbaiki
+        function navigateToSection(sectionId, event) {
+            // Mencegah perilaku default anchor link
+            event.preventDefault();
+            
+            // Hapus semua kelas active dari navigasi
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Tambahkan kelas active ke link yang diklik
+            event.target.classList.add('active');
+            
+            // Jika yang diklik adalah About, pastikan panel About selalu ditampilkan
+            if (sectionId === 'about') {
+                const aboutSection = document.getElementById('about');
+                const toggleBtn = document.getElementById('aboutToggleBtn');
+                const toggleText = document.getElementById('aboutToggleText');
+                
+                // Selalu tampilkan About saat diklik dari navigasi
+                if (!aboutSection.classList.contains('show')) {
+                    aboutSection.classList.add('show');
+                    toggleBtn.classList.add('show-less');
+                    toggleText.textContent = 'Sembunyikan About';
+                }
+            }
+            
+            // Scroll ke section yang dituju
+            const section = document.getElementById(sectionId);
+            if (section) {
+                // Hitung posisi scroll yang tepat dengan memperhitung offset dari header
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const navHeight = document.querySelector('nav').offsetHeight;
+                const sectionTop = section.offsetTop - headerHeight - navHeight;
+                
+                window.scrollTo({
+                    top: sectionTop,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Fungsi untuk memperbarui navigasi aktif saat scroll
+        function updateActiveNavOnScroll() {
+            const sections = document.querySelectorAll('section.panel');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let currentSection = '';
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const navHeight = document.querySelector('nav').offsetHeight;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - headerHeight - navHeight - 100;
+                const sectionHeight = section.offsetHeight;
+                
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Event listener untuk scroll
+        window.addEventListener('scroll', updateActiveNavOnScroll);
+
+        // Inisialisasi navigasi aktif saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            updateActiveNavOnScroll();
+        });
     </script>
 </body>
 </html>
-
-
-
-
