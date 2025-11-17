@@ -1234,12 +1234,12 @@
     </header>
 
     <nav>
+        <a href="#ticket" onclick="navigateToSection('ticket', event)">Ticket</a>
         <a href="#about" onclick="navigateToSection('about', event)">About</a>
         <a href="#event" onclick="navigateToSection('event', event)">Event</a>
         <a href="#lineup" onclick="navigateToSection('lineup', event)">Line Up</a>
         <a href="#gallery" onclick="navigateToSection('gallery', event)">Gallery</a>
         <a href="#merchandise" onclick="navigateToSection('merchandise', event)">Merchandise</a>
-        <a href="#ticket" onclick="navigateToSection('ticket', event)">Ticket</a>
     </nav>
 
     <main>
@@ -1250,6 +1250,14 @@
                 <i class="fas fa-chevron-down"></i>
             </button>
         </div>
+
+        <!-- Panel Ticket dipindahkan ke posisi pertama -->
+        <section id="ticket" class="panel">
+            <h2>Ticket</h2>
+            <p>Dapatkan tiket Anda sekarang juga dan jangan lewatkan pengalaman magis ini!</p>
+            <!-- Perubahan: Tombol CTA lebih kecil dan rata tengah -->
+            <a href="https://www.yesplis.com/event/spektamagis-vol-2" target="_blank" class="cta-button-sm">Beli Tiket di Sini</a>
+        </section>
 
         <section id="about" class="panel">
             <h2>About</h2>
@@ -1451,13 +1459,6 @@
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section id="ticket" class="panel">
-            <h2>Ticket</h2>
-            <p>Dapatkan tiket Anda sekarang juga dan jangan lewatkan pengalaman magis ini!</p>
-            <!-- Perubahan: Tombol CTA lebih kecil dan rata tengah -->
-            <a href="https://www.yesplis.com/event/spektamagis-vol-2" target="_blank" class="cta-button-sm">Beli Tiket di Sini</a>
         </section>
     </main>
 
@@ -1791,7 +1792,7 @@
             // Scroll ke section yang dituju
             const section = document.getElementById(sectionId);
             if (section) {
-                // Hitung posisi scroll yang tepat dengan memperhitung offset dari header
+                // Hitung posisi scroll yang tepat dengan memperhitungkan offset dari header
                 const headerHeight = document.querySelector('header').offsetHeight;
                 const navHeight = document.querySelector('nav').offsetHeight;
                 const sectionTop = section.offsetTop - headerHeight - navHeight;
