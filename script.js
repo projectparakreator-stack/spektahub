@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { src: 'https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback13.jpg', caption: 'Intim Panggung dan Performa Penuh Energi' }
     ];
 
-    const locationPhotoUrl = 'https://images.unsplash.com/photo-1541336032412-2048a678540d?q=80&w=2070&auto=format&fit=crop'; // Contoh URL gambar
+    const locationPhotoUrl = 'https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/kalawa.jpg'; // Contoh URL gambar
 
     // --- ELEMEN DOM ---
     const body = document.body;
@@ -467,3 +467,4 @@ document.addEventListener('DOMContentLoaded', function() {
     init();
 
 });
+
