@@ -488,26 +488,86 @@ nav a.active::after {
     text-transform: uppercase;
 }
 
-/* Gaya untuk Lokasi Event */
+/* Gaya untuk Lokasi Event dengan Error Handling */
 .event-location-details {
     display: flex;
     justify-content: center;
     margin-top: 30px;
+    position: relative;
+}
+
+.location-photo-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: var(--panel-bg);
+    border: 1px solid var(--border-color);
 }
 
 .location-photo {
-    max-width: 100%;
     width: 100%;
     height: auto;
-    border-radius: 15px;
-    border: 1px solid var(--border-color);
-    object-fit: cover;
+    display: block;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    object-fit: cover;
 }
 
 .location-photo:hover {
     transform: scale(1.02);
     box-shadow: 0 8px 25px rgba(4, 239, 246, 0.2);
+}
+
+.location-photo-loading {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--panel-bg);
+    color: var(--text-color);
+    font-family: var(--font-body);
+}
+
+.location-photo-error {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--panel-bg);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    text-align: center;
+    padding: 20px;
+}
+
+.location-photo-error i {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.location-photo-error p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+.location-photo-error button {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.location-photo-error button:hover {
+    background-color: #03c7d0;
 }
 
 .artist-list {
@@ -1797,255 +1857,3 @@ nav a:focus, .add-to-cart-btn:focus, .cta-button:focus, .checkout-btn:focus,
         border: 1px solid #ccc;
     }
 }
-/* --- Mobile Touch Optimizations --- */
-/* Touch target size for better mobile interaction */
-button, .add-to-cart-btn, .cta-button, .checkout-btn, 
-.about-toggle-btn, .analytics-btn, .mobile-nav-toggle,
-.close-mobile-nav, .close-analytics, .close-cart {
-    min-height: 44px; /* iOS minimum touch target */
-    min-width: 44px; /* iOS minimum touch target */
-}
-
-/* Prevent double-tap zoom on mobile */
-button, .add-to-cart-btn, .cta-button, .checkout-btn {
-    touch-action: manipulation; /* Prevents double-tap zoom */
-}
-
-/* Fix for iOS Safari hover issues */
-@media (hover: none) and (pointer: coarse) {
-    /* Apply hover styles for touch devices */
-    button:hover, .add-to-cart-btn:hover, .cta-button:hover, 
-    .checkout-btn:hover, .about-toggle-btn:hover, .analytics-btn:hover,
-    .mobile-nav-toggle:hover, .close-mobile-nav:hover, .close-analytics:hover, 
-    .close-cart:hover {
-        /* Apply hover styles */
-        background-color: var(--accent-color);
-        color: var(--background-color);
-        transform: translateY(-2px);
-    }
-}
-
-/* Fix for iOS Safari focus issues */
-button:focus, .add-to-cart-btn:focus, .cta-button:focus, 
-.checkout-btn:focus, .about-toggle-btn:focus, .analytics-btn:focus,
-.mobile-nav-toggle:focus, .close-mobile-nav:focus, .close-analytics:focus, 
-.close-cart:focus {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;
-}
-
-/* Fix for iOS Safari scrolling issues */
-.mobile-nav {
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    overflow-y: auto;
-}
-
-/* Fix for iOS Safari z-index issues */
-.mobile-nav, .mobile-nav-overlay, .cart-modal, .analytics-dashboard {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-}
-
-/* Fix for iOS Safari fixed positioning */
-.theme-toggle-container, .cart-icon, .visitor-counter {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-}
-
-/* Fix for iOS Safari animation performance */
-@media (hover: none) and (pointer: coarse) {
-    /* Disable animations on touch devices for better performance */
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-}
-
-/* Fix for iOS Safari select dropdown issues */
-select {
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: var(--panel-bg);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    padding: 10px;
-    font-family: var(--font-body);
-}
-
-/* Fix for iOS Safari input issues */
-input[type="text"], input[type="number"], input[type="email"], 
-input[type="password"], textarea {
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: var(--panel-bg);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    padding: 10px;
-    font-family: var(--font-family);
-}
-
-/* Fix for iOS Safari button issues */
-button {
-    -webkit-appearance: none;
-    appearance: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-/* Fix for iOS Safari link issues */
-a {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-/* Fix for iOS Safari cursor issues */
-button, .add-to-cart-btn, .cta-button, 
-.checkout-btn, .about-toggle-btn, .analytics-btn,
-.mobile-nav-toggle, .close-mobile-nav, .close-analytics, 
-.close-cart {
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* Fix for iOS Safari scrolling issues */
-body {
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
-}
-
-/* Fix for iOS Safari overlay issues */
-.mobile-nav-overlay, .cart-modal, .analytics-dashboard {
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
-}
-/* --- Mobile Touch Optimizations --- */
-/* Touch target size for better mobile interaction */
-button, .add-to-cart-btn, .cta-button, .checkout-btn, 
-.about-toggle-btn, .analytics-btn, .mobile-nav-toggle,
-.close-mobile-nav, .close-analytics, .close-cart {
-    min-height: 44px; /* iOS minimum touch target */
-    min-width: 44px; /* iOS minimum touch target */
-}
-
-/* Prevent double-tap zoom on mobile */
-button, .add-to-cart-btn, .cta-button, .checkout-btn {
-    touch-action: manipulation; /* Prevents double-tap zoom */
-}
-
-/* Fix for iOS Safari hover issues */
-@media (hover: none) and (pointer: coarse) {
-    /* Apply hover styles for touch devices */
-    button:hover, .add-to-cart-btn:hover, .cta-button:hover, 
-    .checkout-btn:hover, .about-toggle-btn:hover, .analytics-btn:hover,
-    .mobile-nav-toggle:hover, .close-mobile-nav:hover, .close-analytics:hover, 
-    .close-cart:hover {
-        /* Apply hover styles */
-        background-color: var(--accent-color);
-        color: var(--background-color);
-        transform: translateY(-2px);
-    }
-}
-
-/* Fix for iOS Safari focus issues */
-button:focus, .add-to-cart-btn:focus, .cta-button:focus, 
-.checkout-btn:focus, .about-toggle-btn:focus, .analytics-btn:focus,
-.mobile-nav-toggle:focus, .close-mobile-nav:focus, .close-analytics:focus, 
-.close-cart:focus {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;
-}
-
-/* Fix for iOS Safari scrolling issues */
-.mobile-nav {
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    overflow-y: auto;
-}
-
-/* Fix for iOS Safari z-index issues */
-.mobile-nav, .mobile-nav-overlay, .cart-modal, .analytics-dashboard {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-}
-
-/* Fix for iOS Safari fixed positioning */
-.theme-toggle-container, .cart-icon, .visitor-counter {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-}
-
-/* Fix for iOS Safari animation performance */
-@media (hover: none) and (pointer: coarse) {
-    /* Disable animations on touch devices for better performance */
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-}
-
-/* Fix for iOS Safari select dropdown issues */
-select {
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: var(--panel-bg);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    padding: 10px;
-    font-family: var(--font-body);
-}
-
-/* Fix for iOS Safari input issues */
-input[type="text"], input[type="number"], input[type="email"], 
-input[type="password"], textarea {
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: var(--panel-bg);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    padding: 10px;
-    font-family: var(--font-family);
-}
-
-/* Fix for iOS Safari button issues */
-button {
-    -webkit-appearance: none;
-    appearance: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-/* Fix for iOS Safari link issues */
-a {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-/* Fix for iOS Safari cursor issues */
-button, .add-to-cart-btn, .cta-button, 
-.checkout-btn, .about-toggle-btn, .analytics-btn,
-.mobile-nav-toggle, .close-mobile-nav, .close-analytics, 
-.close-cart {
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* Fix for iOS Safari scrolling issues */
-body {
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
-}
-
-/* Fix for iOS Safari overlay issues */
-.mobile-nav-overlay, .cart-modal, .analytics-dashboard {
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
-}
-
-
