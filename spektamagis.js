@@ -1,0 +1,3029 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spektamagis</title>
+    
+    <!-- Link ke Font Maragsa & Poppins dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Maragsa&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Link ke Font Awesome untuk Ikon Media Sosial & Shopping Cart -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Link ke file CSS -->
+    <style>
+        /* --- Gaya Umum & Font --- */
+        @import url('https://fonts.googleapis.com/css2?family=Maragsa&family=Poppins:wght@300;400;500;600&display=swap');
+
+        /* Variabel Warna untuk Mode Malam (Default) */
+        :root {
+            --primary-color: #ffffff;
+            --background-color: #000000;
+            --panel-bg: #0a0a0a;
+            --accent-color: #04eff6; /* Cyan */
+            --text-color: #cccccc;
+            --border-color: #1a1a1a;
+            --font-header: 'Maragsa', sans-serif; /* Font untuk Header/Judul */
+            --font-body: 'Poppins', sans-serif; /* Font untuk Deskripsi/Paragraf */
+            --aurora-opacity-1: 0.1;
+            --aurora-opacity-2: 0.2;
+            --header-bg: radial-gradient(circle, rgba(10, 10, 15, 0.8) 0%, rgba(0, 0, 0, 0.9) 70%);
+            --nav-bg: rgba(10, 10, 15, 0.9);
+            --panel-bg-color: rgba(10, 10, 15, 0.8);
+            --artist-bg: #111;
+            --mystery-bg: #0f0f0f;
+            --slideshow-bg: #111;
+            --merch-bg: #111;
+            --footer-color: #666;
+            --mobile-nav-height: 60px;
+        }
+
+        /* Variabel Warna untuk Mode Siang */
+        [data-theme="light"] {
+            --primary-color: #000000;
+            --background-color: #f0f8ff;
+            --panel-bg: #ffffff;
+            --accent-color: #04eff6; /* Cyan */
+            --text-color: #333333;
+            --border-color: #e0e0e0;
+            --aurora-opacity-1: 0.3;
+            --aurora-opacity-2: 0.4;
+            --header-bg: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(240, 248, 255, 0.95) 70%);
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --panel-bg-color: rgba(255, 255, 255, 0.9);
+            --artist-bg: #f5f5f5;
+            --mystery-bg: #e0f7fa;
+            --slideshow-bg: #f5f5f5;
+            --merch-bg: #f5f5f5;
+            --footer-color: #777;
+        }
+
+        /* --- Background Animasi Aurora --- */
+        body {
+            font-family: var(--font-body);
+            background-color: var(--background-color);
+            color: var(--primary-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden; /* Mencegah scroll horizontal muncul */
+            position: relative; /* Diperlukan untuk positioning pseudo-element */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Lapisan Aurora Pertama */
+        body::before {
+            content: '';
+            position: fixed; /* Fixed agar tidak bergerak saat scroll */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(130deg, 
+                rgba(4, 239, 246, var(--aurora-opacity-1)) 0%, 
+                rgba(4, 239, 246, calc(var(--aurora-opacity-1) + 0.2)) 40%, 
+                rgba(2, 209, 215, var(--aurora-opacity-1)) 60%, 
+                transparent 100%);
+            z-index: -1; /* Letakkan di belakang semua konten */
+            filter: blur(60px); /* Efek blur untuk membuatnya menyerupai cahaya */
+            animation: aurora-1 20s ease-in-out infinite;
+            transition: opacity 0.3s ease;
+            will-change: transform, opacity; /* Optimasi performa */
+            backface-visibility: hidden; /* Mengurangi repaint */
+        }
+
+        /* Lapisan Aurora Kedua */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, 
+                rgba(4, 239, 246, var(--aurora-opacity-2)) 0%, 
+                rgba(2, 209, 215, calc(var(--aurora-opacity-2) - 0.1)) 50%, 
+                transparent 70%);
+            z-index: -1;
+            filter: blur(80px);
+            animation: aurora-2 25s ease-in-out infinite reverse; /* Arah animasi berlawanan */
+            transition: opacity 0.3s ease;
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+        }
+
+        /* Definisi Animasi untuk Aurora */
+        @keyframes aurora-1 {
+            0%, 100% {
+                transform: translateX(-10%) translateY(-10%) rotate(0deg) scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translateX(10%) translateY(10%) rotate(180deg) scale(1.2);
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes aurora-2 {
+            0%, 100% {
+                transform: translateX(10%) translateY(10%) rotate(0deg) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateX(-10%) translateY(-10%) rotate(-180deg) scale(1.3);
+                opacity: 0.5;
+            }
+        }
+
+        /* --- Theme Toggle --- */
+        .theme-toggle-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-icon {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .theme-toggle {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .theme-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* --- Header & Navigasi --- */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--header-bg);
+            backdrop-filter: blur(5px); /* Memberikan efek blur pada header */
+            transition: background 0.3s ease;
+            position: relative;
+        }
+
+        /* Gaya untuk Header Image */
+        .header-image {
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(4, 239, 246, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .header-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(4, 239, 246, 0.3);
+        }
+
+        /* Desktop Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Mobile Navigation Toggle */
+        .mobile-nav-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(4, 239, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(4, 239, 246, 0.4);
+        }
+
+        /* Mobile Navigation Menu */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background-color: var(--panel-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1002;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .mobile-nav.active {
+            left: 0;
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .mobile-nav-title {
+            font-family: var(--font-header);
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .close-mobile-nav {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-mobile-nav:hover {
+            color: var(--accent-color);
+        }
+
+        .mobile-nav-links {
+            padding: 20px 0;
+        }
+
+        .mobile-nav-links a {
+            display: block;
+            font-family: var(--font-header);
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .mobile-nav-links a:hover, .mobile-nav-links a.active {
+            background-color: rgba(4, 239, 246, 0.1);
+            color: var(--accent-color);
+            border-left-color: var(--accent-color);
+        }
+
+        /* Overlay for mobile navigation */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-nav-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Desktop Navigation Links */
+        nav a {
+            font-family: var(--font-header);
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+            transform: translateY(-2px) translateZ(0);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Active state untuk navigasi */
+        nav a.active {
+            color: var(--accent-color);
+        }
+
+        nav a.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* --- Panel & Konten Utama --- */
+        .panel {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: var(--panel-bg-color);
+            backdrop-filter: blur(10px); /* Efek glassmorphism */
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(4, 239, 246, 0.1);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .panel h2 {
+            font-family: var(--font-header);
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .panel h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .panel p {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-color);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- Spesifik Panel --- */
+        #event .event-details {
+            text-align: center;
+            font-size: 1.2rem;
+            font-family: var(--font-body);
+            margin-bottom: 20px;
+        }
+
+        #event .event-details p {
+            margin: 10px 0;
+        }
+
+        /* Gaya untuk Countdown Timer */
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            font-family: var(--font-header);
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            text-align: center;
+            background-color: rgba(4, 239, 246, 0.1);
+            border: 1px solid var(--accent-color);
+            border-radius: 10px;
+            padding: 15px;
+            min-width: 70px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(4, 239, 246, 0.3);
+        }
+
+        .countdown-value {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            line-height: 1;
+        }
+
+        .countdown-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-color);
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        /* Gaya untuk Lokasi Event dengan Error Handling */
+        .event-location-details {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .location-photo-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            overflow: hidden;
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .location-photo {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            object-fit: cover;
+        }
+
+        .location-photo:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(4, 239, 246, 0.2);
+        }
+
+        .location-photo-loading {
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--panel-bg);
+            color: var(--text-color);
+            font-family: var(--font-body);
+        }
+
+        .location-photo-error {
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--panel-bg);
+            color: var(--text-color);
+            font-family: var(--font-body);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .location-photo-error i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .location-photo-error p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .location-photo-error button {
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .location-photo-error button:hover {
+            background-color: #03c7d0;
+        }
+
+        .artist-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Gaya untuk Artist Card */
+        .artist-card {
+            width: 100%;
+            max-width: 350px;
+            background-color: var(--artist-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .artist-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(4, 239, 246, 0.4);
+            border-color: var(--accent-color);
+        }
+
+        /* Gaya untuk foto artis */
+        .artist-photo {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Gaya untuk konten artis (nama, link, deskripsi) */
+        .artist-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* Gaya untuk header artis (nama dan link spotify) */
+        .artist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        /* Gaya untuk nama artis */
+        .artist-name {
+            font-family: var(--font-header);
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        /* Gaya untuk Link Logo Spotify */
+        .spotify-link {
+            color: #1DB954;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .spotify-link:hover {
+            transform: scale(1.1);
+            color: #1ed760;
+        }
+
+        /* Gaya untuk deskripsi artis */
+        .artist-description {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-color);
+            font-weight: 500;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        /* --- Gaya untuk Slideshow Gallery --- */
+        .slideshow-container {
+            max-width: 100%;
+            position: relative;
+            margin: auto;
+            background-color: var(--slideshow-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        .slide {
+            display: none;
+            text-align: center;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .throwback-caption {
+            padding: 15px;
+            margin: 0;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-color);
+            background-color: var(--slideshow-bg);
+            border-radius: 0 0 15px 15px;
+        }
+
+        /* Gaya untuk Tombol Navigasi */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 24px;
+            transition: 0.3s ease;
+            border-radius: 0 5px 5px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: var(--accent-color);
+            color: var(--background-color);
+        }
+
+        /* Gaya untuk Indikator Dots */
+        .dot-container {
+            text-align: center;
+            padding: 15px 0;
+            background-color: var(--slideshow-bg);
+            border-radius: 0 0 15px 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: var(--border-color);
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .active, .dot:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* --- Gaya untuk Merchandise Slider --- */
+        .merch-slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .merch-slider-wrapper {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 20px;
+            padding: 10px 50px 10px 10px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .merch-slider-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .merch-item-wrapper {
+            flex: 0 0 auto;
+            width: 200px;
+            text-align: center;
+            background-color: var(--merch-bg);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .merch-item-wrapper:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(4, 239, 246, 0.3);
+        }
+
+        .merch-item {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .merch-item-wrapper p {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            font-family: var(--font-body);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .merch-price {
+            font-family: var(--font-body);
+            font-weight: 600;
+            color: var(--accent-color);
+            margin: 5px 0;
+        }
+
+        /* Gaya untuk Tombol Panah Slider */
+        .merch-prev, .merch-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(4, 239, 246, 0.7);
+            color: var(--background-color);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .merch-prev {
+            left: 5px;
+        }
+
+        .merch-next {
+            right: 5px;
+        }
+
+        .merch-prev:hover, .merch-next:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Gaya untuk Tombol Add to Cart */
+        .add-to-cart-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 10px;
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            transform: scale(1.05);
+        }
+
+        /* --- Shopping Cart Styles --- */
+        .cart-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(4, 239, 246, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(4, 239, 246, 0.4);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff4757;
+            color: white;
+            font-size: 0.8rem;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .cart-modal-content {
+            background-color: var(--panel-bg);
+            margin: 10% auto;
+            padding: 0;
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-header h3 {
+            margin: 0;
+            font-family: var(--font-header);
+            color: var(--primary-color);
+        }
+
+        .close-cart {
+            color: var(--text-color);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-cart:hover {
+            color: var(--accent-color);
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-info h4 {
+            margin: 0 0 5px 0;
+            font-family: var(--font-body);
+            color: var(--primary-color);
+        }
+
+        .cart-item-info p {
+            margin: 0;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-item-quantity button {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--border-color);
+            background-color: transparent;
+            color: var(--primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item-quantity button:hover {
+            background-color: var(--accent-color);
+            color: var(--background-color);
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #ff4757;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .remove-item:hover {
+            transform: scale(1.2);
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 8px;
+            font-family: var(--font-header);
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background-color: #03c7d0;
+            transform: translateY(-2px);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(4, 239, 246, 0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1002;
+        }
+
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* --- Tombol Tiket (CTA) --- */
+        .cta-button {
+            font-family: var(--font-header);
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(4, 239, 246, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: #03c7d0;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(4, 239, 246, 0.4);
+        }
+
+        .cta-button-sm {
+            display: block;
+            margin: 30px auto 0 auto;
+            padding: 12px 30px;
+            font-size: 1rem;
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            text-decoration: none;
+            font-family: var(--font-header);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(4, 239, 246, 0.2);
+        }
+
+        .cta-button-sm:hover {
+            background-color: #03c7d0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(4, 239, 246, 0.3);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+            color: var(--footer-color);
+            font-size: 0.9rem;
+            font-family: var(--font-body);
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* --- Gaya untuk Social Media Links --- */
+        .social-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.8rem;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        /* --- About Panel Toggle --- */
+        .about-toggle {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+            max-width: 900px;
+        }
+
+        .about-toggle-btn {
+            background-color: var(--panel-bg-color);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-family: var(--font-header);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .about-toggle-btn:hover {
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            transform: translateY(-2px);
+        }
+
+        .about-toggle-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .about-toggle-btn.show-less i {
+            transform: rotate(180deg);
+        }
+
+        #about {
+            display: none;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s ease, padding 0.5s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        #about.show {
+            display: block;
+            max-height: 1000px;
+            opacity: 1;
+        }
+
+        /* --- Analytics Dashboard Styles --- */
+        .analytics-dashboard {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .analytics-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--panel-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .analytics-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .analytics-title {
+            font-family: var(--font-header);
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .close-analytics {
+            color: var(--text-color);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-analytics:hover {
+            color: var(--accent-color);
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .analytics-card {
+            background-color: var(--artist-bg);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .analytics-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .analytics-value {
+            font-family: var(--font-header);
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .analytics-label {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .analytics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .analytics-table th, .analytics-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .analytics-table th {
+            font-family: var(--font-header);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .analytics-table td {
+            font-family: var(--font-body);
+            color: var(--text-color);
+        }
+
+        .analytics-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .analytics-btn {
+            padding: 10px 20px;
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .analytics-btn:hover {
+            background-color: #03c7d0;
+            transform: translateY(-2px);
+        }
+
+        .analytics-btn.secondary {
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+        }
+
+        .analytics-btn.secondary:hover {
+            background-color: var(--accent-color);
+            color: var(--background-color);
+        }
+
+        /* --- Visitor Counter --- */
+        .visitor-counter {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(10, 10, 15, 0.8);
+            color: var(--primary-color);
+            padding: 10px 15px;
+            border-radius: 30px;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border-color);
+            z-index: 999;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .visitor-counter:hover {
+            background-color: var(--accent-color);
+            color: var(--background-color);
+        }
+
+        .visitor-counter i {
+            font-size: 1rem;
+        }
+
+        /* --- Responsive Design --- */
+        /* Large Desktop */
+        @media (min-width: 1200px) {
+            .panel {
+                padding: 60px 40px;
+            }
+            
+            .panel h2 {
+                font-size: 2.8rem;
+            }
+            
+            .panel p {
+                font-size: 1.1rem;
+            }
+            
+            .artist-card {
+                width: 350px;
+            }
+            
+            .merch-item-wrapper {
+                width: 220px;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .panel {
+                padding: 50px 30px;
+            }
+            
+            .panel h2 {
+                font-size: 2.5rem;
+            }
+            
+            .artist-card {
+                width: 320px;
+            }
+            
+            .merch-item-wrapper {
+                width: 200px;
+            }
+        }
+
+        /* Tablet Landscape */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .panel {
+                padding: 40px 25px;
+                margin: 25px auto;
+            }
+            
+            .panel h2 {
+                font-size: 2.2rem;
+            }
+            
+            nav a {
+                margin: 0 10px;
+                font-size: 0.9rem;
+            }
+            
+            .artist-card {
+                width: 300px;
+            }
+            
+            .merch-item-wrapper {
+                width: 180px;
+            }
+            
+            .analytics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Tablet Portrait */
+        @media (min-width: 576px) and (max-width: 767px) {
+            .panel {
+                padding: 35px 20px;
+                margin: 20px auto;
+            }
+            
+            .panel h2 {
+                font-size: 2rem;
+            }
+            
+            .panel p {
+                font-size: 0.95rem;
+            }
+            
+            .countdown-item {
+                min-width: 60px;
+                padding: 10px;
+            }
+            
+            .countdown-value {
+                font-size: 1.8rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.7rem;
+            }
+            
+            .artist-card {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .artist-name {
+                font-size: 1.5rem;
+            }
+            
+            .merch-item-wrapper {
+                width: 160px;
+            }
+            
+            .merch-item-wrapper p {
+                font-size: 0.85rem;
+            }
+            
+            .analytics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .analytics-value {
+                font-size: 1.8rem;
+            }
+            
+            .analytics-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Mobile Landscape */
+        @media (max-width: 575px) and (orientation: landscape) {
+            header {
+                padding: 30px 20px;
+            }
+            
+            .panel {
+                padding: 25px 15px;
+                margin: 15px auto;
+            }
+            
+            .panel h2 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+            
+            .panel p {
+                font-size: 0.9rem;
+            }
+            
+            .countdown-item {
+                min-width: 50px;
+                padding: 8px;
+            }
+            
+            .countdown-value {
+                font-size: 1.5rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.65rem;
+            }
+            
+            .artist-card {
+                max-width: 250px;
+            }
+            
+            .artist-photo {
+                height: 150px;
+            }
+            
+            .artist-name {
+                font-size: 1.3rem;
+            }
+            
+            .artist-description {
+                font-size: 0.85rem;
+            }
+            
+            .merch-item-wrapper {
+                width: 140px;
+            }
+            
+            .merch-item-wrapper p {
+                font-size: 0.8rem;
+            }
+            
+            .cart-modal-content {
+                margin: 5% auto;
+                width: 95%;
+            }
+            
+            .cart-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .cart-count {
+                width: 20px;
+                height: 20px;
+                font-size: 0.7rem;
+            }
+            
+            .visitor-counter {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+            
+            .theme-toggle-container {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+            }
+            
+            .theme-icon {
+                font-size: 0.9rem;
+            }
+            
+            .theme-toggle {
+                width: 40px;
+                height: 20px;
+            }
+            
+            .slider:before {
+                height: 14px;
+                width: 14px;
+                left: 3px;
+                bottom: 3px;
+            }
+            
+            input:checked + .slider:before {
+                transform: translateX(20px);
+            }
+        }
+
+        /* Mobile Portrait */
+        @media (max-width: 575px) {
+            /* Show mobile navigation */
+            .mobile-nav-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .mobile-nav {
+                display: block;
+            }
+            
+            .mobile-nav-overlay {
+                display: block;
+            }
+            
+            /* Hide desktop navigation */
+            nav {
+                display: none;
+            }
+            
+            header {
+                padding: 70px 20px 40px;
+            }
+            
+            .panel {
+                padding: 30px 15px;
+                margin: 20px auto;
+            }
+            
+            .panel h2 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+            
+            .panel p {
+                font-size: 0.9rem;
+            }
+            
+            .countdown-item {
+                min-width: 60px;
+                padding: 10px;
+            }
+            
+            .countdown-value {
+                font-size: 1.6rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.7rem;
+            }
+            
+            .artist-card {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .artist-photo {
+                height: 180px;
+            }
+            
+            .artist-name {
+                font-size: 1.5rem;
+            }
+            
+            .artist-description {
+                font-size: 0.85rem;
+            }
+            
+            .merch-item-wrapper {
+                width: 150px;
+            }
+            
+            .merch-item-wrapper p {
+                font-size: 0.85rem;
+            }
+            
+            .slide img {
+                max-height: 250px;
+            }
+            
+            .cart-modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+            
+            .cart-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .cart-count {
+                width: 20px;
+                height: 20px;
+                font-size: 0.7rem;
+            }
+            
+            .visitor-counter {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+            
+            .theme-toggle-container {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+            }
+            
+            .theme-icon {
+                font-size: 0.9rem;
+            }
+            
+            .theme-toggle {
+                width: 40px;
+                height: 20px;
+            }
+            
+            .slider:before {
+                height: 14px;
+                width: 14px;
+                left: 3px;
+                bottom: 3px;
+            }
+            
+            input:checked + .slider:before {
+                transform: translateX(20px);
+            }
+            
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .analytics-value {
+                font-size: 1.8rem;
+            }
+            
+            .analytics-title {
+                font-size: 1.5rem;
+            }
+            
+            .analytics-table {
+                font-size: 0.8rem;
+            }
+            
+            .analytics-table th, .analytics-table td {
+                padding: 8px;
+            }
+            
+            .analytics-actions {
+                flex-direction: column;
+            }
+            
+            .analytics-btn {
+                width: 100%;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 375px) {
+            .panel h2 {
+                font-size: 1.6rem;
+            }
+            
+            .panel p {
+                font-size: 0.85rem;
+            }
+            
+            .artist-name {
+                font-size: 1.3rem;
+            }
+            
+            .artist-description {
+                font-size: 0.8rem;
+            }
+            
+            .merch-item-wrapper {
+                width: 130px;
+            }
+            
+            .merch-item-wrapper p {
+                font-size: 0.8rem;
+            }
+            
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .cta-button-sm {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* --- Accessibility Enhancements --- */
+        /* Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+            body::before, body::after {
+                animation: none;
+            }
+            
+            * {
+                transition: none !important;
+            }
+        }
+
+        /* Focus styles for better keyboard navigation */
+        nav a:focus, .add-to-cart-btn:focus, .cta-button:focus, .checkout-btn:focus, 
+        .about-toggle-btn:focus, .analytics-btn:focus, .mobile-nav-toggle:focus,
+        .close-mobile-nav:focus, .close-analytics:focus, .close-cart:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            body::before, body::after {
+                display: none !important;
+            }
+            
+            .cart-icon, .cart-modal, .theme-toggle-container, .visitor-counter, 
+            .analytics-dashboard, .mobile-nav-toggle, .mobile-nav, .mobile-nav-overlay {
+                display: none !important;
+            }
+            
+            .panel {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- Mobile Navigation Toggle -->
+        <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Toggle untuk Mode Siang/Malam -->
+        <div class="theme-toggle-container">
+            <span class="theme-icon"><i class="fas fa-sun"></i></span>
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-toggle-checkbox">
+                <span class="slider"></span>
+            </label>
+            <span class="theme-icon"><i class="fas fa-moon"></i></span>
+        </div>
+        
+        <!-- Header Image -->
+        <img src="https://z-cdn-media.chatglm.cn/files/6800ef5e-32c6-4228-8ce8-b8637e8af653_Header%20website.jpg?auth_key=1793193141-a430fe80d74549c6b9ebff3c2286973a-0-450ba43e54c2dde7c449e80c75da4cdb" alt="Spektamagis Header" class="header-image">
+    </header>
+
+    <!-- Desktop Navigation -->
+    <nav>
+        <a href="#ticket" onclick="navigateToSection('ticket', event)">Ticket</a>
+        <a href="#about" onclick="navigateToSection('about', event)">About</a>
+        <a href="#event" onclick="navigateToSection('event', event)">Event</a>
+        <a href="#lineup" onclick="navigateToSection('lineup', event)">Line Up</a>
+        <a href="#gallery" onclick="navigateToSection('gallery', event)">Gallery</a>
+        <a href="#merchandise" onclick="navigateToSection('merchandise', event)">Merchandise</a>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobile-nav">
+        <div class="mobile-nav-header">
+            <h3 class="mobile-nav-title">Menu</h3>
+            <button class="close-mobile-nav" id="close-mobile-nav" aria-label="Close navigation menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-nav-links">
+            <a href="#ticket" onclick="navigateToSection('ticket', event)">Ticket</a>
+            <a href="#about" onclick="navigateToSection('about', event)">About</a>
+            <a href="#event" onclick="navigateToSection('event', event)">Event</a>
+            <a href="#lineup" onclick="navigateToSection('lineup', event)">Line Up</a>
+            <a href="#gallery" onclick="navigateToSection('gallery', event)">Gallery</a>
+            <a href="#merchandise" onclick="navigateToSection('merchandise', event)">Merchandise</a>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+
+    <main>
+        <!-- About Toggle Button -->
+        <div class="about-toggle">
+            <button class="about-toggle-btn" id="aboutToggleBtn" onclick="toggleAbout()">
+                <span id="aboutToggleText">Tampilkan About</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+
+        <!-- Panel Ticket dipindahkan ke posisi pertama -->
+        <section id="ticket" class="panel">
+            <h2>Ticket</h2>
+            <p>Dapatkan tiket Anda sekarang juga dan jangan lewatkan pengalaman magis ini!</p>
+            <a href="https://www.yesplis.com/event/spektamagis-vol-2" target="_blank" class="cta-button-sm">Beli Tiket di Sini</a>
+        </section>
+
+        <section id="about" class="panel">
+            <h2>About</h2>
+            <p>Spektamagis Vol. 2 menghadirkan hiburan yang tidak hanya memukau secara audio dan visual, tetapi juga menggerakkan hati, ini bukan sekadar konser, melainkan ruang untuk menyalurkan emosi, merayakan rasa, dan menemukan kembali semangat bersama.</p>
+            <p>Heartbreak Playground menjadi tema besar Spektamagis Vol. 2, sebuah gerakan empati untuk menciptakan ruang yang aman, hangat, dan penuh penerimaan bagi semua orang, sebuah perayaan tentang naik-turunnya rasa, patah hati yang dirayakan bersama, dan tawa di tengah luka. Tahun 2026, Spektamagis memperluas maknanya lewat kampanye "No Space For Bullying" dan #HealNotHurt, yang menyoroti pentingnya kesadaran mental, empati sosial, dan komunikasi tanpa kekerasan.</p>
+            <p>Spektamagis Vol.2 ini adalah sebuah ajakan untuk saling memahami bukan menghakimi, untuk memilih pelukan daripada sekedar basa-basi. Spektamagis bukan hanya panggung musik, tetapi juga ruang untuk merayakan luka dengan cara yang sangat menghibur, hangat, dan penuh warna.</p>
+            <p>P A T A H • P E L U K • P U L I H<p>
+        </section>
+
+        <section id="event" class="panel">
+            <h2>Event</h2>
+            <div class="event-details text-center">
+                <p><strong>Lokasi:</strong> Kalawa Convention Hall, Palangka Raya</p>
+                <p><strong>Tanggal:</strong> 6 Februari 2026</p>
+            </div>
+            <!-- Countdown Timer -->
+            <div id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-value" id="days">00</span>
+                    <span class="countdown-label">Hari</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="hours">00</span>
+                    <span class="countdown-label">Jam</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="minutes">00</span>
+                    <span class="countdown-label">Menit</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="seconds">00</span>
+                    <span class="countdown-label">Detik</span>
+                </div>
+            </div>
+            <!-- Foto Lokasi Event dengan Error Handling -->
+            <div class="event-location-details">
+                <div class="location-photo-container" id="location-photo-container">
+                    <div class="location-photo-loading">
+                        <i class="fas fa-spinner fa-spin"></i> <span>Memuat foto...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lineup" class="panel">
+            <h2>Line Up</h2>
+            <div class="artist-list">
+                <!-- Artist Card untuk Juicy Luicy -->
+                <div class="artist-card">
+                    <img src="https://z-cdn-media.chatglm.cn/files/edab2bf5-4ae5-4708-92f4-322f88c7d662_juicy%20luicy.png?auth_key=1792131790-30c8e330da014e0d97a12fb0962572e5-0-e15b552ad71b3fa56cb180b076ca12cf" alt="Juicy Luicy" class="artist-photo">
+                    <div class="artist-content">
+                        <div class="artist-header">
+                            <div class="artist-name">Juicy Luicy</div>
+                            <a href="https://open.spotify.com/artist/3tMTXQyRrPmMyHv5SoC0TV?si=SF_h-yO5QJaBZp8dhfzCbg" target="_blank" rel="noopener noreferrer" class="spotify-link" aria-label="Juicy Luicy on Spotify">
+                                <i class="fab fa-spotify"></i>
+                            </a>
+                        </div>
+                        <p class="artist-description">Juicy Luicy adalah band pop asal Bandung yang terkenal dengan lagu tentang cinta dan patah hati yang relate sama banyak orang. Lewat lagu-lagu kayak "Lantas", "Terlalu Tinggi", dan "Tampar", mereka selalu berhasil nyentuh perasaan dengan lirik yang sederhana tapi ngena. Di Spektamagis: Heartbreak Playground, Juicy Luicy hadir buat menemani kamu lewat perjalanan penuh rasa — dari yang patah, belajar peluk, sampai akhirnya pulih bareng-bareng lewat musik.</p>
+                    </div>
+                </div>
+                
+                <!-- Artist Card untuk Oomleo Berkaraoke ft El Rumi -->
+                <div class="artist-card">
+                    <img src="https://z-cdn-media.chatglm.cn/files/2e62df4e-a62d-40fa-81a9-4e87c522bd44_oom%20leo.png?auth_key=1792238486-87f5d8f1e79949e999b8cc03efab5413-0-18bda6851d8ebea7edebe580b25aa45a" alt="Oomleo Berkaraoke ft El Rumi" class="artist-photo">
+                    <div class="artist-content">
+                        <div class="artist-header">
+                            <div class="artist-name">Oomleo Berkaraoke ft El Rumi</div>
+                        </div>
+                        <p class="artist-description">Oom Leo, sang pemandu pesta karaoke legendaris, kembali membawa energi khasnya — spontan, jenaka, dan penuh nostalgia bersama El Rumi, mereka menghadirkan kolaborasi unik yang memadukan tawa dan luka, jingkrak dan kenangan. Di Heartbreak Playground, panggung mereka bukan sekadar tempat bernyanyi — tapi arena buat melepas beban dengan berkaraoke ria.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="panel">
+            <h2>Gallery</h2>
+            <!-- Slideshow Container -->
+            <div class="slideshow-container">
+                <!-- Tombol Navigasi -->
+                <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+                <a class="next" onclick="changeSlide(1)">&#10095;</a>
+
+                <!-- Wrapper untuk Slides -->
+                <div class="slides-wrapper">
+                    <div class="slide">
+                        <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback1.jpg" alt="Kerumunan penonton yang antusias" class="throwback-photo">
+                        <p class="throwback-caption">Energi Kerumunan di Spektamagis Vol. 1</p>
+                    </div>
+                    <div class="slide">
+                        <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback2.jpg" alt="Kerumunan penonton yang antusias" class="throwback-photo">
+                        <p class="throwback-caption">Energi Kerumunan di Spektamagis Vol. 1</p>
+                    </div>
+                    <div class="slide">
+                        <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback3.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                         <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback4.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                        <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback5.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                        <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback6.jpg" alt="Kerumunan penonton yang antusias" class="throwback-photo">
+                        <p class="throwback-caption">Energi Kerumunan di Spektamagis Vol. 1</p>
+                    </div>
+                    <div class="slide">
+                        <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback7.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                         <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback8.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                        <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback9.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                        <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback10.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Energi Kerumunan di Spektamagis Vol. 1</p>
+                    </div>
+                    <div class="slide">
+                        <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback11.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                        <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback12.jpg" alt="Seorang artis sedang tampil di panggung" class="throwback-photo">
+                        <p class="throwback-caption">Penampilan Memukau di Panggung Spektamagis</p>
+                    </div>
+                    <div class="slide">
+                        <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/throwback13.jpg" alt="Sebuah band sedang bermain musik" class="throwback-photo">
+                        <p class="throwback-caption">Intim Panggung dan Performa Penuh Energi</p>
+                    </div>
+                </div>
+                
+                <!-- Indikator Dots -->
+                <div class="dot-container">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                    <span class="dot" onclick="currentSlide(5)"></span>
+                    <span class="dot" onclick="currentSlide(6)"></span>
+                    <span class="dot" onclick="currentSlide(7)"></span>
+                    <span class="dot" onclick="currentSlide(8)"></span>
+                    <span class="dot" onclick="currentSlide(9)"></span>
+                    <span class="dot" onclick="currentSlide(10)"></span>
+                    <span class="dot" onclick="currentSlide(11)"></span>
+                    <span class="dot" onclick="currentSlide(12)"></span>
+                    <span class="dot" onclick="currentSlide(13)"></span>
+                </div>
+            </div>
+        </section>
+
+        <section id="merchandise" class="panel">
+            <h2>Merchandise</h2>
+            <!-- Horizontal Slider Container -->
+            <div class="merch-slider-container">
+                <button class="merch-prev" id="merchPrevBtn">&#10094;</button>
+                <button class="merch-next" id="merchNextBtn">&#10095;</button>
+                <div class="merch-slider-wrapper">
+                    <!-- Merch Item 1 -->
+                    <div class="merch-item-wrapper" data-product-name="Gelang Spektamagis" data-price="20000">
+                        <img src="https://z-cdn-media.chatglm.cn/files/b22daeb8-2465-468c-9b99-9bc846041bcf_Gelang%20karet%202.jpg?auth_key=1792131314-e6d07734e9a841dc904d03b79401da8e-0-c6589909e3e45ab97876e1f1e76ca40d" alt="Spektamagis Silicone Wristbands" class="merch-item">
+                        <p>Gelang Spektamagis</p>
+                        <p class="merch-price">Rp 20.000</p>
+                        <a href="#" class="add-to-cart-btn" onclick="addToCart('Gelang Spektamagis', 20000); return false;">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </a>
+                    </div>
+                    <!-- Merch Item 2 -->
+                    <div class="merch-item-wrapper" data-product-name="Lanyard & Kartu" data-price="20000">
+                        <img src="https://z-cdn-media.chatglm.cn/files/73f4c093-b01a-4678-883c-c81e441f0aea_lanyard%202.jpg?auth_key=1792131314-10915567183341c0a30838b390a491ff-0-7e905ad49529d500474ca2bf40729143" alt="Spektamagis Lanyard and Card" class="merch-item">
+                        <p>Lanyard & Kartu</p>
+                        <p class="merch-price">Rp 20.000</p>
+                        <a href="#" class="add-to-cart-btn" onclick="addToCart('Lanyard & Kartu', 20000); return false;">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </a>
+                    </div>
+                    <!-- Merch Item 3 -->
+                    <div class="merch-item-wrapper" data-product-name="Kaos Oversize" data-price="200000">
+                        <img src="https://z-cdn-media.chatglm.cn/files/e17811cc-26bb-4c20-9992-5ef2ea40774e_Oversize%202.jpg?auth_key=1792131314-80a894c337e743c6890ba33c4c0e1e92-0-80de4a9ebca63d8472fea4fa8b1c6bc3" alt="Spektamagis Oversized T-shirt" class="merch-item">
+                        <p>Kaos Oversize</p>
+                        <p class="merch-price">Rp 200.000</p>
+                        <a href="#" class="add-to-cart-btn" onclick="addToCart('Kaos Oversize', 200000); return false;">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </a>
+                    </div>
+                    <!-- Merch Item 4 -->
+                    <div class="merch-item-wrapper" data-product-name="Tote Bag" data-price="100000">
+                        <img src="https://z-cdn-media.chatglm.cn/files/c99f9f11-c11f-4c64-8389-978d145c91e9_Tote%20bag%202.jpg?auth_key=1792131314-74974f83ea3a4eb8a97dccf84e1b0028-0-2345b149a403ef5db6bd01b23041bc94" alt="Spektamagis Tote Bag" class="merch-item">
+                        <p>Tote Bag</p>
+                        <p class="merch-price">Rp 100.000</p>
+                        <a href="#" class="add-to-cart-btn" onclick="addToCart('Tote Bag', 100000); return false;">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Spektamagis. All Rights Reserved.</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/spektamagis" target="_blank" rel="noopener noreferrer" aria-label="Instagram Spektamagis">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@spektamagis_" target="_blank" rel="noopener noreferrer" aria-label="TikTok Spektamagis">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://www.youtube.com/@Spektamagis" target="_blank" rel="noopener noreferrer" aria-label="YouTube Spektamagis">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-modal-content">
+            <div class="cart-header">
+                <h3>Keranjang Belanja</h3>
+                <span class="close-cart" onclick="closeCart()">&times;</span>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total: </span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Icon -->
+    <div class="cart-icon" onclick="openCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cart-count">0</span>
+    </div>
+
+    <!-- Visitor Counter -->
+    <div class="visitor-counter" onclick="openAnalytics()">
+        <i class="fas fa-chart-line"></i>
+        <span id="visitor-count">0</span> pengunjung
+    </div>
+
+    <!-- Analytics Dashboard -->
+    <div id="analytics-dashboard" class="analytics-dashboard">
+        <div class="analytics-content">
+            <div class="analytics-header">
+                <h2 class="analytics-title">Website Analytics</h2>
+                <span class="close-analytics" onclick="closeAnalytics()">&times;</span>
+            </div>
+            
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <div class="analytics-value" id="total-visits">0</div>
+                    <div class="analytics-label">Total Kunjungan</div>
+                </div>
+                <div class="analytics-card">
+                    <div class="analytics-value" id="unique-visitors">0</div>
+                    <div class="analytics-label">Pengunjung Unik</div>
+                </div>
+                <div class="analytics-card">
+                    <div class="analytics-value" id="returning-visitors">0</div>
+                    <div class="analytics-label">Pengunjung Kembali</div>
+                </div>
+                <div class="analytics-card">
+                    <div class="analytics-value" id="avg-session-time">0s</div>
+                    <div class="analytics-label">Rata-rata Waktu Sesi</div>
+                </div>
+            </div>
+            
+            <h3 style="font-family: var(--font-header); color: var(--primary-color); margin-bottom: 15px;">Halaman Paling Populer</h3>
+            <table class="analytics-table">
+                <thead>
+                    <tr>
+                        <th>Halaman</th>
+                        <th>Kunjungan</th>
+                        <th>% dari Total</th>
+                    </tr>
+                </thead>
+                <tbody id="page-stats">
+                    <!-- Page statistics will be dynamically added here -->
+                </tbody>
+            </table>
+            
+            <h3 style="font-family: var(--font-header); color: var(--primary-color); margin: 30px 0 15px;">Riwayat Kunjungan</h3>
+            <table class="analytics-table">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Waktu</th>
+                        <th>Jenis Kunjungan</th>
+                        <th>Waktu di Situs</th>
+                    </tr>
+                </thead>
+                <tbody id="visit-history">
+                    <!-- Visit history will be dynamically added here -->
+                </tbody>
+            </table>
+            
+            <div class="analytics-actions">
+                <button class="analytics-btn" onclick="exportAnalytics()">Export Data</button>
+                <button class="analytics-btn secondary" onclick="resetAnalytics()">Reset Data</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Website Analytics Tracking System
+        const analytics = {
+            // Initialize analytics data
+            init: function() {
+                // Check if visitor ID exists in cookies
+                let visitorId = this.getCookie('visitor_id');
+                let isNewVisitor = false;
+                
+                // If no visitor ID, create one
+                if (!visitorId) {
+                    visitorId = this.generateVisitorId();
+                    this.setCookie('visitor_id', visitorId, 365);
+                    isNewVisitor = true;
+                }
+                
+                // Get or create analytics data from localStorage
+                let analyticsData = localStorage.getItem('spektamagis_analytics');
+                if (!analyticsData) {
+                    analyticsData = {
+                        totalVisits: 0,
+                        uniqueVisitors: 0,
+                        returningVisitors: 0,
+                        pageViews: {},
+                        visitHistory: [],
+                        sessionStart: new Date().toISOString()
+                    };
+                } else {
+                    analyticsData = JSON.parse(analyticsData);
+                }
+                
+                // Update visit data
+                analyticsData.totalVisits++;
+                
+                if (isNewVisitor) {
+                    analyticsData.uniqueVisitors++;
+                } else {
+                    analyticsData.returningVisitors++;
+                }
+                
+                // Track current page view
+                const currentPage = window.location.hash || '#ticket';
+                if (!analyticsData.pageViews[currentPage]) {
+                    analyticsData.pageViews[currentPage] = 0;
+                }
+                analyticsData.pageViews[currentPage]++;
+                
+                // Add to visit history
+                analyticsData.visitHistory.push({
+                    date: new Date().toLocaleDateString('id-ID'),
+                    time: new Date().toLocaleTimeString('id-ID'),
+                    isNewVisitor: isNewVisitor,
+                    page: currentPage,
+                    sessionId: visitorId
+                });
+                
+                // Keep only last 100 visits to avoid storage issues
+                if (analyticsData.visitHistory.length > 100) {
+                    analyticsData.visitHistory = analyticsData.visitHistory.slice(-100);
+                }
+                
+                // Save updated data
+                localStorage.setItem('spektamagis_analytics', JSON.stringify(analyticsData));
+                
+                // Update visitor counter display
+                this.updateVisitorCounter(analyticsData.totalVisits);
+                
+                // Track page views on navigation
+                this.trackPageViews();
+                
+                // Track session time
+                this.trackSessionTime();
+                
+                return analyticsData;
+            },
+            
+            // Generate a unique visitor ID
+            generateVisitorId: function() {
+                return 'visitor_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+            },
+            
+            // Cookie helper functions
+            setCookie: function(name, value, days) {
+                let expires = "";
+                if (days) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + value + expires + "; path=/";
+            },
+            
+            getCookie: function(name) {
+                const nameEQ = name + "=";
+                const ca = document.cookie.split(';');
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            },
+            
+            // Update visitor counter display
+            updateVisitorCounter: function(totalVisits) {
+                const counter = document.getElementById('visitor-count');
+                if (counter) {
+                    counter.textContent = totalVisits.toLocaleString('id-ID');
+                }
+            },
+            
+            // Track page views when user navigates
+            trackPageViews: function() {
+                const sections = document.querySelectorAll('section[id]');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const sectionId = '#' + entry.target.id;
+                            this.trackPageView(sectionId);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                sections.forEach(section => {
+                    observer.observe(section);
+                });
+            },
+            
+            // Track individual page view
+            trackPageView: function(page) {
+                let analyticsData = localStorage.getItem('spektamagis_analytics');
+                if (analyticsData) {
+                    analyticsData = JSON.parse(analyticsData);
+                    
+                    if (!analyticsData.pageViews[page]) {
+                        analyticsData.pageViews[page] = 0;
+                    }
+                    analyticsData.pageViews[page]++;
+                    
+                    localStorage.setItem('spektamagis_analytics', JSON.stringify(analyticsData));
+                }
+            },
+            
+            // Track session time
+            trackSessionTime: function() {
+                const sessionStart = new Date();
+                
+                window.addEventListener('beforeunload', () => {
+                    const sessionEnd = new Date();
+                    const sessionDuration = Math.floor((sessionEnd - sessionStart) / 1000); // in seconds
+                    
+                    let analyticsData = localStorage.getItem('spektamagis_analytics');
+                    if (analyticsData) {
+                        analyticsData = JSON.parse(analyticsData);
+                        
+                        // Update the last visit with session duration
+                        if (analyticsData.visitHistory.length > 0) {
+                            analyticsData.visitHistory[analyticsData.visitHistory.length - 1].sessionDuration = sessionDuration;
+                        }
+                        
+                        localStorage.setItem('spektamagis_analytics', JSON.stringify(analyticsData));
+                    }
+                });
+            },
+            
+            // Get analytics data for dashboard
+            getAnalyticsData: function() {
+                const analyticsData = localStorage.getItem('spektamagis_analytics');
+                if (!analyticsData) {
+                    return null;
+                }
+                
+                const data = JSON.parse(analyticsData);
+                
+                // Calculate average session time
+                let totalSessionTime = 0;
+                let sessionsWithDuration = 0;
+                
+                data.visitHistory.forEach(visit => {
+                    if (visit.sessionDuration) {
+                        totalSessionTime += visit.sessionDuration;
+                        sessionsWithDuration++;
+                    }
+                });
+                
+                const avgSessionTime = sessionsWithDuration > 0 ? Math.floor(totalSessionTime / sessionsWithDuration) : 0;
+                
+                // Format average session time
+                let formattedTime = '';
+                if (avgSessionTime < 60) {
+                    formattedTime = avgSessionTime + 's';
+                } else if (avgSessionTime < 3600) {
+                    formattedTime = Math.floor(avgSessionTime / 60) + 'm ' + (avgSessionTime % 60) + 's';
+                } else {
+                    const hours = Math.floor(avgSessionTime / 3600);
+                    const minutes = Math.floor((avgSessionTime % 3600) / 60);
+                    formattedTime = hours + 'j ' + minutes + 'm';
+                }
+                
+                return {
+                    ...data,
+                    avgSessionTime: formattedTime,
+                    avgSessionTimeSeconds: avgSessionTime
+                };
+            },
+            
+            // Export analytics data
+            exportData: function() {
+                const data = this.getAnalyticsData();
+                if (!data) return;
+                
+                const dataStr = JSON.stringify(data, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const exportFileDefaultName = 'spektamagis_analytics_' + new Date().toISOString().slice(0, 10) + '.json';
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+            },
+            
+            // Reset analytics data
+            resetData: function() {
+                if (confirm('Apakah Anda yakin ingin mereset semua data analitik? Tindakan ini tidak dapat dibatalkan.')) {
+                    localStorage.removeItem('spektamagis_analytics');
+                    this.setCookie('visitor_id', '', -1); // Delete visitor cookie
+                    location.reload();
+                }
+            }
+        };
+
+        // Script untuk Countdown Timer
+        const countDownDate = new Date("Feb 6, 2026 19:00:00").getTime();
+
+        const countdownFunction = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+            
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("countdown").innerHTML = "EVENT SUDAH DIMULAI!";
+            }
+        }, 1000);
+
+        // Script untuk Slideshow Gallery
+        let slideIndex = 1;
+        showSlide(slideIndex);
+
+        function changeSlide(n) {
+            showSlide(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlide(slideIndex = n);
+        }
+
+        function showSlide(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+            
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+
+        // Script untuk Merchandise Slider & Shopping Cart
+        document.addEventListener('DOMContentLoaded', function () {
+            const merchWrapper = document.querySelector('.merch-slider-wrapper');
+            const prevBtn = document.getElementById('merchPrevBtn');
+            const nextBtn = document.getElementById('merchNextBtn');
+            
+            function scrollSlider(direction) {
+                const scrollAmount = merchWrapper.clientWidth;
+                if (direction === 'next') {
+                    merchWrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                } else {
+                    merchWrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                }
+            }
+
+            prevBtn.addEventListener('click', () => scrollSlider('prev'));
+            nextBtn.addEventListener('click', () => scrollSlider('next'));
+        });
+
+        // Shopping Cart Functionality
+        let cart = [];
+        
+        function addToCart(productName, price) {
+            const existingItem = cart.find(item => item.name === productName);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: productName,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showNotification(`${productName} ditambahkan ke keranjang!`);
+        }
+        
+        function removeFromCart(productName) {
+            cart = cart.filter(item => item.name !== productName);
+            updateCart();
+        }
+        
+        function updateQuantity(productName, change) {
+            const item = cart.find(item => item.name === productName);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productName);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+        
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+            
+            cartItems.innerHTML = '';
+            
+            let totalItems = 0;
+            let totalPrice = 0;
+            
+            cart.forEach(item => {
+                totalItems += item.quantity;
+                totalPrice += item.price * item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <p>Rp ${item.price.toLocaleString('id-ID')}</p>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <button onclick="updateQuantity('${item.name}', -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="updateQuantity('${item.name}', 1)">+</button>
+                    </div>
+                    <button class="remove-item" onclick="removeFromCart('${item.name}')">&times;</button>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+            
+            cartCount.textContent = totalItems;
+            cartTotal.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+            
+            localStorage.setItem('spektamagisCart', JSON.stringify(cart));
+        }
+        
+        function openCart() {
+            document.getElementById('cart-modal').style.display = 'block';
+        }
+        
+        function closeCart() {
+            document.getElementById('cart-modal').style.display = 'none';
+        }
+        
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Keranjang belanja Anda kosong!');
+                return;
+            }
+            
+            let message = 'Halo, saya ingin memesan merchandise Spektamagis:\n\n';
+            let totalPrice = 0;
+            
+            cart.forEach(item => {
+                message += `${item.name} x ${item.quantity} = Rp ${(item.price * item.quantity).toLocaleString('id-ID')}\n`;
+                totalPrice += item.price * item.quantity;
+            });
+            
+            message += `\nTotal: Rp ${totalPrice.toLocaleString('id-ID')}`;
+            
+            const phoneNumber = '+62-813-1608-8558';
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber.replace(/[^0-9]/g, '')}?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        
+        window.addEventListener('load', function() {
+            const savedCart = localStorage.getItem('spektamagisCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+            }
+            
+            // Initialize analytics
+            analytics.init();
+        });
+        
+        window.onclick = function(event) {
+            const cartModal = document.getElementById('cart-modal');
+            if (event.target === cartModal) {
+                closeCart();
+            }
+        }
+
+        // Script untuk Theme Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle-checkbox');
+            const currentTheme = localStorage.getItem('theme');
+            
+            if (currentTheme) {
+                document.documentElement.setAttribute('data-theme', currentTheme);
+                
+                if (currentTheme === 'dark') {
+                    themeToggle.checked = true;
+                }
+            } else {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    themeToggle.checked = true;
+                }
+            }
+            
+            themeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        });
+
+        // Script untuk About Toggle
+        function toggleAbout() {
+            const aboutSection = document.getElementById('about');
+            const toggleBtn = document.getElementById('aboutToggleBtn');
+            const toggleText = document.getElementById('aboutToggleText');
+            
+            if (aboutSection.classList.contains('show')) {
+                aboutSection.classList.remove('show');
+                toggleBtn.classList.remove('show-less');
+                toggleText.textContent = 'Tampilkan About';
+            } else {
+                aboutSection.classList.add('show');
+                toggleBtn.classList.add('show-less');
+                toggleText.textContent = 'Sembunyikan About';
+            }
+        }
+
+        // Script untuk Navigasi yang Diperbaiki
+        function navigateToSection(sectionId, event) {
+            // Mencegah perilaku default anchor link
+            event.preventDefault();
+            
+            // Close mobile navigation if open
+            closeMobileNav();
+            
+            // Hapus semua kelas active dari navigasi
+            const navLinks = document.querySelectorAll('nav a, .mobile-nav-links a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Tambahkan kelas active ke link yang diklik
+            event.target.classList.add('active');
+            
+            // Jika yang diklik adalah About, pastikan panel About selalu ditampilkan
+            if (sectionId === 'about') {
+                const aboutSection = document.getElementById('about');
+                const toggleBtn = document.getElementById('aboutToggleBtn');
+                const toggleText = document.getElementById('aboutToggleText');
+                
+                // Selalu tampilkan About saat diklik dari navigasi
+                if (!aboutSection.classList.contains('show')) {
+                    aboutSection.classList.add('show');
+                    toggleBtn.classList.add('show-less');
+                    toggleText.textContent = 'Sembunyikan About';
+                }
+            }
+            
+            // Scroll ke section yang dituju
+            const section = document.getElementById(sectionId);
+            if (section) {
+                // Hitung posisi scroll yang tepat dengan memperhitungkan offset dari header
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const navHeight = document.querySelector('nav').offsetHeight || 0;
+                const sectionTop = section.offsetTop - headerHeight - navHeight;
+                
+                window.scrollTo({
+                    top: sectionTop,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Fungsi untuk memperbarui navigasi aktif saat scroll
+        function updateActiveNavOnScroll() {
+            const sections = document.querySelectorAll('section.panel');
+            const navLinks = document.querySelectorAll('nav a, .mobile-nav-links a');
+            
+            let currentSection = '';
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const navHeight = document.querySelector('nav').offsetHeight || 0;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - headerHeight - navHeight - 100;
+                const sectionHeight = section.offsetHeight;
+                
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Event listener untuk scroll
+        window.addEventListener('scroll', updateActiveNavOnScroll);
+
+        // Inisialisasi navigasi aktif saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            updateActiveNavOnScroll();
+        });
+
+        // Mobile Navigation Functions
+        function openMobileNav() {
+            const mobileNav = document.getElementById('mobile-nav');
+            const overlay = document.getElementById('mobile-nav-overlay');
+            
+            mobileNav.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent body scroll when nav is open
+        }
+
+        function closeMobileNav() {
+            const mobileNav = document.getElementById('mobile-nav');
+            const overlay = document.getElementById('mobile-nav-overlay');
+            
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = ''; // Restore body scroll
+        }
+
+        // Event listeners for mobile navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+            const closeMobileNavBtn = document.getElementById('close-mobile-nav');
+            const overlay = document.getElementById('mobile-nav-overlay');
+            
+            if (mobileNavToggle) {
+                mobileNavToggle.addEventListener('click', openMobileNav);
+            }
+            
+            if (closeMobileNavBtn) {
+                closeMobileNavBtn.addEventListener('click', closeMobileNav);
+            }
+            
+            if (overlay) {
+                overlay.addEventListener('click', closeMobileNav);
+            }
+            
+            // Close mobile nav when pressing Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeMobileNav();
+                }
+            });
+        });
+
+        // Analytics Dashboard Functions
+        function openAnalytics() {
+            const dashboard = document.getElementById('analytics-dashboard');
+            dashboard.style.display = 'block';
+            
+            // Populate analytics data
+            const data = analytics.getAnalyticsData();
+            if (data) {
+                document.getElementById('total-visits').textContent = data.totalVisits.toLocaleString('id-ID');
+                document.getElementById('unique-visitors').textContent = data.uniqueVisitors.toLocaleString('id-ID');
+                document.getElementById('returning-visitors').textContent = data.returningVisitors.toLocaleString('id-ID');
+                document.getElementById('avg-session-time').textContent = data.avgSessionTime;
+                
+                // Populate page statistics
+                const pageStats = document.getElementById('page-stats');
+                pageStats.innerHTML = '';
+                
+                // Sort pages by views
+                const sortedPages = Object.entries(data.pageViews).sort((a, b) => b[1] - a[1]);
+                
+                sortedPages.forEach(([page, views]) => {
+                    const percentage = ((views / data.totalVisits) * 100).toFixed(1);
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${page}</td>
+                        <td>${views}</td>
+                        <td>${percentage}%</td>
+                    `;
+                    pageStats.appendChild(row);
+                });
+                
+                // Populate visit history (show last 10)
+                const visitHistory = document.getElementById('visit-history');
+                visitHistory.innerHTML = '';
+                
+                const recentVisits = data.visitHistory.slice(-10).reverse();
+                
+                recentVisits.forEach(visit => {
+                    const row = document.createElement('tr');
+                    const visitType = visit.isNewVisitor ? 'Pengunjung Baru' : 'Pengunjung Kembali';
+                    const sessionTime = visit.sessionDuration ? 
+                        (visit.sessionDuration < 60 ? `${visit.sessionDuration}s` : 
+                         `${Math.floor(visit.sessionDuration / 60)}m ${visit.sessionDuration % 60}s`) : 'N/A';
+                    
+                    row.innerHTML = `
+                        <td>${visit.date}</td>
+                        <td>${visit.time}</td>
+                        <td>${visitType}</td>
+                        <td>${sessionTime}</td>
+                    `;
+                    visitHistory.appendChild(row);
+                });
+            }
+        }
+
+        function closeAnalytics() {
+            document.getElementById('analytics-dashboard').style.display = 'none';
+        }
+
+        function exportAnalytics() {
+            analytics.exportData();
+            showNotification('Data analitik berhasil diekspor!');
+        }
+
+        function resetAnalytics() {
+            analytics.resetData();
+        }
+
+        // Keyboard shortcut to open analytics (Ctrl+Shift+A)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+                e.preventDefault();
+                openAnalytics();
+            }
+        });
+
+        // Enhanced Image Loading for Kalawa Photo
+        function loadKalawaPhoto() {
+            const container = document.getElementById('location-photo-container');
+            const githubUrl = 'https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/kalawa.jpg';
+            const fallbackUrl = 'https://picsum.photos/seed/kalawa/600/400.jpg';
+            
+            const img = new Image();
+            
+            img.onload = function() {
+                container.innerHTML = `
+                    <img src="${githubUrl}" alt="Foto Kalawa Convention Hall" class="location-photo">
+                `;
+            };
+            
+            img.onerror = function() {
+                container.innerHTML = `
+                    <div class="location-photo-error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Gagal memuat foto dari GitHub</strong></p>
+                        <p>Menggunakan foto cadangan...</p>
+                        <button onclick="loadFallbackPhoto()">Muat Foto Cadangan</button>
+                    </div>
+                `;
+            };
+            
+            img.src = githubUrl;
+        }
+        
+        function loadFallbackPhoto() {
+            const container = document.getElementById('location-photo-container');
+            const fallbackUrl = 'https://picsum.photos/seed/kalawa/600/400.jpg';
+            
+            container.innerHTML = `
+                <img src="${fallbackUrl}" alt="Foto Kalawa Convention Hall" class="location-photo">
+            `;
+        }
+        
+        // Initialize Kalawa photo loading when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add a small delay to ensure page is fully loaded
+            setTimeout(loadKalawaPhoto, 500);
+        });
+
+        // Handle orientation change for mobile devices
+        window.addEventListener('orientationchange', function() {
+            // Small delay to allow browser to complete orientation change
+            setTimeout(function() {
+                // Recalculate layout after orientation change
+                updateActiveNavOnScroll();
+                
+                // Adjust slideshow if needed
+                if (window.innerWidth < 768) {
+                    showSlide(slideIndex);
+                }
+            }, 200);
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            // Debounce resize event
+            clearTimeout(window.resizeTimer);
+            window.resizeTimer = setTimeout(function() {
+                updateActiveNavOnScroll();
+                
+                // Adjust slideshow if needed
+                if (window.innerWidth < 768) {
+                    showSlide(slideIndex);
+                }
+            }, 250);
+        });
+    </script>
+</body>
+</html>
