@@ -506,26 +506,86 @@
             text-transform: uppercase;
         }
 
-        /* Gaya untuk Lokasi Event */
+        /* Gaya untuk Lokasi Event dengan Error Handling */
         .event-location-details {
             display: flex;
             justify-content: center;
             margin-top: 30px;
+            position: relative;
+        }
+
+        .location-photo-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            overflow: hidden;
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
         }
 
         .location-photo {
-            max-width: 100%;
             width: 100%;
             height: auto;
-            border-radius: 15px;
-            border: 1px solid var(--border-color);
-            object-fit: cover;
+            display: block;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            object-fit: cover;
         }
 
         .location-photo:hover {
             transform: scale(1.02);
             box-shadow: 0 8px 25px rgba(4, 239, 246, 0.2);
+        }
+
+        .location-photo-loading {
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--panel-bg);
+            color: var(--text-color);
+            font-family: var(--font-body);
+        }
+
+        .location-photo-error {
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--panel-bg);
+            color: var(--text-color);
+            font-family: var(--font-body);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .location-photo-error i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .location-photo-error p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .location-photo-error button {
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .location-photo-error button:hover {
+            background-color: #03c7d0;
         }
 
         .artist-list {
@@ -1919,8 +1979,13 @@
                     <span class="countdown-label">Detik</span>
                 </div>
             </div>
+            <!-- Foto Lokasi Event dengan Error Handling -->
             <div class="event-location-details">
-    <img src="https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/kalawa.jpg" alt="Foto Kalawa Convention Hall" class="location-photo">
+                <div class="location-photo-container" id="location-photo-container">
+                    <div class="location-photo-loading">
+                        <i class="fas fa-spinner fa-spin"></i> <span>Memuat foto...</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -2889,9 +2954,52 @@
             }
         });
 
+        // Enhanced Image Loading for Kalawa Photo
+        function loadKalawaPhoto() {
+            const container = document.getElementById('location-photo-container');
+            const githubUrl = 'https://raw.githubusercontent.com/projectparakreator-stack/spektahub/main/kalawa.jpg';
+            const fallbackUrl = 'https://picsum.photos/seed/kalawa/600/400.jpg';
+            
+            const img = new Image();
+            
+            img.onload = function() {
+                container.innerHTML = `
+                    <img src="${githubUrl}" alt="Foto Kalawa Convention Hall" class="location-photo">
+                `;
+            };
+            
+            img.onerror = function() {
+                container.innerHTML = `
+                    <div class="location-photo-error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Gagal memuat foto dari GitHub</strong></p>
+                        <p>Menggunakan foto cadangan...</p>
+                        <button onclick="loadFallbackPhoto()">Muat Foto Cadangan</button>
+                    </div>
+                `;
+            };
+            
+            img.src = githubUrl;
+        }
+        
+        function loadFallbackPhoto() {
+            const container = document.getElementById('location-photo-container');
+            const fallbackUrl = 'https://picsum.photos/seed/kalawa/600/400.jpg';
+            
+            container.innerHTML = `
+                <img src="${fallbackUrl}" alt="Foto Kalawa Convention Hall" class="location-photo">
+            `;
+        }
+        
+        // Initialize Kalawa photo loading when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add a small delay to ensure page is fully loaded
+            setTimeout(loadKalawaPhoto, 500);
+        });
+
         // Handle orientation change for mobile devices
         window.addEventListener('orientationchange', function() {
-            // Small delay to allow the browser to complete the orientation change
+            // Small delay to allow browser to complete orientation change
             setTimeout(function() {
                 // Recalculate layout after orientation change
                 updateActiveNavOnScroll();
@@ -2919,12 +3027,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
