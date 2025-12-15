@@ -382,18 +382,42 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handleCheckout() {
-        if (cart.length === 0) {
-            alert('Keranjang Anda kosong!');
-            return;
-        }
-        // Di sini Anda bisa mengintegrasikan dengan gateway pembayaran
-        const orderDetails = cart.map(item => `${item.name} (x${item.quantity})`).join('\n');
-        alert(`Terima kasih telah melakukan pemesanan!\n\nPesanan Anda:\n${orderDetails}\n\nTotal: ${cartTotalElement.innerText}\n\n(Fitur checkout ini adalah simulasi)`);
-        cart = [];
-        saveCart();
-        updateCartUI();
-        closeCart();
+    if (cart.length === 0) {
+        alert('Keranjang Anda kosong!');
+        return;
     }
+
+    // 1. Format pesanan menjadi teks yang mudah dibaca
+    let orderDetails = "Halo, saya ingin melakukan pemesanan merchandise Spektamagis Vol. 2.\n\n";
+    orderDetails += "Detail Pesanan:\n";
+
+    let total = 0;
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        orderDetails += `- ${item.name} (x${item.quantity})\n`;
+    });
+
+    orderDetails += `\nTotal: Rp ${total.toLocaleString('id-ID')}`;
+
+    // 2. Siapkan nomor telepon dan pesan untuk WhatsApp
+    // Nomor telepon harus dalam format internasional tanpa '+' dan '0' di depan
+    const phoneNumber = "6281316088558"; 
+    const encodedMessage = encodeURIComponent(orderDetails); // Encode pesan agar aman untuk URL
+
+    // 3. Buat URL WhatsApp dan buka di tab baru
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+
+    // 4. Tampilkan notifikasi dan kosongkan keranjang
+    showNotification('Mengalihkan Anda ke WhatsApp untuk menyelesaikan pemesanan.');
+    
+    // Kosongkan keranjang setelah checkout
+    cart = [];
+    saveCart();
+    updateCartUI();
+    closeCart();
+}
 
     // Notification
     function showNotification(message) {
@@ -493,6 +517,7 @@ document.getElementById('unique-visitors').innerText = analytics.uniqueVisitors 
     init();
 
 });
+
 
 
 
