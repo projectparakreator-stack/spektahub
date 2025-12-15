@@ -1858,8 +1858,24 @@ nav a:focus, .add-to-cart-btn:focus, .cta-button:focus, .checkout-btn:focus,
     }
 }
 
-/* --- Fix untuk masalah klik di mobile --- */
-main {
-    position: relative;
-    z-index: 1;
+/* --- Mobile Navigation Overlay --- */
+.mobile-nav-overlay {
+    display: block; /* Biarkan 'block' karena kita akan kontrol dengan opacity dan pointer-events */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    opacity: 0; /* Awalnya transparan */
+    transition: opacity 0.3s ease;
+    /* TAMBAHKAN BARIS INI: Ini adalah kunci perbaikannya */
+    pointer-events: none; /* Membuat overlay tidak bisa diklik dan tidak memblokir elemen di bawahnya */
+}
+
+.mobile-nav-overlay.active {
+    opacity: 1; /* Saat aktif, menjadi terlihat */
+    /* TAMBAHKAN BARIS INI: Saat aktif, overlay bisa berinteraksi lagi */
+    pointer-events: auto; 
 }
