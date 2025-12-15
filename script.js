@@ -404,28 +404,54 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
 
-    // Analytics (Simulasi dengan localStorage)
-    function updateAnalytics() {
-        let analytics = JSON.parse(localStorage.getItem('spektamagisAnalytics')) || { totalVisits: 0, uniqueVisitors: new Set(), pageViews: {}, sessionStart: Date.now() };
-        
-        analytics.totalVisits++;
-        analytics.uniqueVisitors.add('visitor-id'); // Simulasi ID unik
-        const currentPage = window.location.pathname;
-        analytics.pageViews[currentPage] = (analytics.pageViews[currentPage] || 0) + 1;
+    // Analytics (Simulasi dengan localStorage) - VERSI PERBAIKI
+function updateAnalytics() {
+    let storedAnalytics = localStorage.getItem('spektamagisAnalytics');
+    let analytics;
 
-        localStorage.setItem('spektamagisAnalytics', JSON.stringify(analytics));
-
-        // Update visitor counter
-        visitorCountElement.innerText = analytics.uniqueVisitors.size;
+    if (storedAnalytics) {
+        analytics = JSON.parse(storedAnalytics);
+        // --- PERBAIKAN: Konversi Array kembali menjadi Set ---
+        if (Array.isArray(analytics.uniqueVisitors)) {
+            analytics.uniqueVisitors = new Set(analytics.uniqueVisitors);
+        } else {
+            analytics.uniqueVisitors = new Set();
+        }
+    } else {
+        // Struktur default untuk kunjungan pertama
+        analytics = {
+            totalVisits: 0,
+            uniqueVisitors: new Set(),
+            pageViews: {},
+            sessionStart: Date.now()
+        };
     }
+
+    // Sekarang kita bisa menggunakan .add() dengan aman
+    analytics.totalVisits++;
+    analytics.uniqueVisitors.add('visitor-id'); // Simulasi ID unik
+    const currentPage = window.location.pathname;
+    analytics.pageViews[currentPage] = (analytics.pageViews[currentPage] || 0) + 1;
+
+    // --- PERBAIKAN: Konversi Set menjadi Array sebelum disimpan ---
+    let analyticsToSave = {
+        ...analytics,
+        uniqueVisitors: Array.from(analytics.uniqueVisitors)
+    };
+
+    localStorage.setItem('spektamagisAnalytics', JSON.stringify(analyticsToSave));
+
+    // Update visitor counter di UI
+    visitorCountElement.innerText = analytics.uniqueVisitors.size;
+}
 
     function openAnalytics() {
         analyticsDashboard.style.display = 'block';
         const analytics = JSON.parse(localStorage.getItem('spektamagisAnalytics')) || {};
         
         document.getElementById('total-visits').innerText = analytics.totalVisits || 0;
-        document.getElementById('unique-visitors').innerText = analytics.uniqueVisitors ? analytics.uniqueVisitors.size : 0;
-        
+        // --- PERBAIKAN: Gunakan .length karena uniqueVisitors sekarang adalah Array ---
+document.getElementById('unique-visitors').innerText = analytics.uniqueVisitors ? analytics.uniqueVisitors.length : 0;
         // Populate page stats table
         const pageStatsBody = document.getElementById('page-stats');
         pageStatsBody.innerHTML = '';
@@ -467,5 +493,6 @@ document.addEventListener('DOMContentLoaded', function() {
     init();
 
 });
+
 
 
