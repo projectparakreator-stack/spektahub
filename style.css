@@ -1857,3 +1857,9 @@ nav a:focus, .add-to-cart-btn:focus, .cta-button:focus, .checkout-btn:focus,
         border: 1px solid #ccc;
     }
 }
+
+/* --- Fix untuk masalah klik di mobile --- */
+main {
+    position: relative;
+    z-index: 1;
+}
